@@ -24,6 +24,12 @@ public class MainPage extends BasePage {
         super(MainPage.class, "main");
     }
 
+    /* Иконка канала отображается */
+    public boolean isChannelIconVisible() {
+        Image image = Image.byClass("freyja_char-header-user-menu__avatar");
+        return image.isDisplayed();
+    }
+
     /* Открытие главной страницы */
     public void open(String url) {
         Selenide.open(url);
