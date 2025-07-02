@@ -1,28 +1,24 @@
 package tests;
 
-import java.io.InputStream;
-import java.util.Properties;
-
+import java.util.Optional;
 public class TestConfig {
-    private static final Properties props = new Properties();
-
-    static {
-        try (InputStream input = TestConfig.class.getClassLoader()
-                .getResourceAsStream("config.properties")) {
-            if (input == null) {
-                throw new RuntimeException("Config файл не найден!");
-            }
-            props.load(input);
-        } catch (Exception e) {
-            throw new RuntimeException("Ошибка загрузки config", e);
-        }
-    }
-
     public static String getPhone() {
-        return props.getProperty("rutube.phone");
+        // Проверка системных свойств (-D параметры)
+        String phone = System.getProperty("rutube.phone");
+        if (phone != null) {
+            return phone;
+        }
+
+        // Проверка переменных окружения
+        phone = System.getenv("RUTUBE_PHONE");
+        if (phone != null) {
+            return phone;
+        }
+        throw new RuntimeException("Номер телефона не настроен! Введите: mvn test -Drutube.phone=YOUR_PHONE -Drutube.password=YOUR_PASSWORD");
     }
 
     public static String getPassword() {
-        return props.getProperty("rutube.password");
+        return Optional.ofNullable(System.getProperty("rutube.password"))
+                .orElseThrow(() -> new RuntimeException("Пароль не настроен! Введите: mvn test -Drutube.phone=YOUR_PHONE -Drutube.password=YOUR_PASSWORD"));
     }
 }

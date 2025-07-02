@@ -8,6 +8,13 @@ public class LoginTest extends BaseTest {
 
     private final static String BASE_URL = "https://rutube.ru/";
 
+
+    @Test
+    void showConfig() {
+        System.out.println("Phone: " + TestConfig.getPhone());
+        System.out.println("Password: " + TestConfig.getPassword());
+    }
+
     @Test
     public void userIconIsDisplayedAfterSuccessfulLogin() {
         MainPage mainPage = new MainPage();
