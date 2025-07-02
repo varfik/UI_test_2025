@@ -46,3 +46,9 @@
 - **8.1** Удаление из истории просмотра
 
 **9. Загрузка видео на канал**
+
+---
+## Конфигурация
+Запускайте тесты с параметрами:
+```bash
+mvn test -Drutube.phone=YOUR_PHONE -Drutube.password=YOUR_PASSWORD
