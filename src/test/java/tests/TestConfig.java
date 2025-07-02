@@ -10,11 +10,11 @@ public class TestConfig {
         try (InputStream input = TestConfig.class.getClassLoader()
                 .getResourceAsStream("config.properties")) {
             if (input == null) {
-                throw new RuntimeException("Config file not found!");
+                throw new RuntimeException("Config файл не найден!");
             }
             props.load(input);
         } catch (Exception e) {
-            throw new RuntimeException("Error loading config", e);
+            throw new RuntimeException("Ошибка загрузки config", e);
         }
     }
 

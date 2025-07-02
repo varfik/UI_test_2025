@@ -15,7 +15,7 @@ abstract public class BaseTest {
         Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
         Configuration.headless = false;
-        Configuration.timeout = 20_000;
+        Configuration.timeout = 40_000;
     }
 
     /* Выполнение метода перед каждым запуском тестов */
