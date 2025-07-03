@@ -14,8 +14,9 @@ public class ResultsOfSearchPage extends BasePage {
     }
 
     /* Нажатие на название канала */
-    public void clickChannelSpan() {
+    public MainChannelPage clickChannelSpan() {
         channelSpan.press();
+        return new MainChannelPage();
     }
 
 }
