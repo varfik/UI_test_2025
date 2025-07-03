@@ -8,7 +8,9 @@ import tests.TestConfig;
 
 import static com.codeborne.selenide.Selenide.*;
 
-/** Главная страница сайта rutube.ru до авторизации **/
+/**
+ * Главная страница сайта rutube.ru до авторизации
+ **/
 public class MainPage extends BasePage {
     /* Кнопка для перехода к окну входу */
     private final Button loginButton = Button.byText("Вход и регистрация");
@@ -44,8 +46,9 @@ public class MainPage extends BasePage {
     }
 
     /* Нажатие на кнопку "Войти" */
-    public void clickLogin() {
+    public MainAfterLoginPage clickLogin() {
         Button.byId("submit-login").press();
+        return new MainAfterLoginPage();
     }
 
     /* Открытие главной страницы */
@@ -59,9 +62,9 @@ public class MainPage extends BasePage {
                 Button.byAriaLabel("Закрыть"),
                 Button.byText("Ок"),
                 Button.byText("Не надо"))
-                .stream()
-                .filter(Button::isDisplayed)
-                .collect(Collectors.toList());
+                                        .stream()
+                                        .filter(Button::isDisplayed)
+                                        .collect(Collectors.toList());
 
         for (Button button : closeButtons) {
             try {
