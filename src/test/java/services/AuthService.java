@@ -12,9 +12,9 @@ public class AuthService {
         mainPage.fillPhone();
         mainPage.clickContinue();
         mainPage.fillPassword();
-        mainPage.clickLogin();
-        mainPage.closePopups();
-        return new MainAfterLoginPage();
+        MainAfterLoginPage mainAfterLoginPage = mainPage.clickLogin();
+        mainAfterLoginPage.closePopups();
+        return mainAfterLoginPage;
     }
 
 }
