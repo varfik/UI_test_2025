@@ -1,7 +1,5 @@
 package pages.elements;
-import java.time.Duration;
 import java.util.List;
-import com.codeborne.selenide.ex.ElementNotFound;
 
 /** Класс элемента типа Button **/
 public class Button extends BaseElement {
@@ -10,12 +8,12 @@ public class Button extends BaseElement {
 
     private static final String ID_XPATH = "//button[@id='%s']";
 
-    private Button(String xpath, String param){
+    private Button(String xpath, String param) {
         super(xpath, param);
     }
 
     /* Нажатие на кнопку */
-    public void press(){
+    public void press() {
         baseElement.click();
     }
 

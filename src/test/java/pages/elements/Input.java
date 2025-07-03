@@ -1,26 +1,34 @@
 package pages.elements;
 
-/** Класс элемента типа Input **/
+/**
+ * Класс элемента типа Input
+ **/
 public class Input extends BaseElement {
     private static final String ID_XPATH = "//input[@id='%s']";
     private static final String NAME_XPATH = "//input[@name='%s']";
+    private static final String CLASS_XPATH = "//input[@name='%s']";
 
-    private Input(String xpath, String param){
+    private Input(String xpath, String param) {
         super(xpath, param);
     }
 
     /* Заполнение поля */
-    public void fill(String value){
+    public void fill(String value) {
         baseElement.setValue(value);
     }
 
     /* Формирование Xpath по ID */
-    public static Input byId(String id){
+    public static Input byId(String id) {
         return new Input(ID_XPATH, id);
     }
 
     /* Формирование Xpath по name*/
-    public static Input byName(String name){
+    public static Input byName(String name) {
         return new Input(NAME_XPATH, name);
+    }
+
+    /* Формирование Xpath по class*/
+    public static Input byClass(String class_name) {
+        return new Input(CLASS_XPATH, class_name);
     }
 }
