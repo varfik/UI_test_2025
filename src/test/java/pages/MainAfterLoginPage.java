@@ -7,10 +7,13 @@ import pages.elements.Input;
 /** Главная страница Rutube.ru после авторизации **/
 public class MainAfterLoginPage extends BasePage {
 
+    /* Иконка канала пользователя */
     private final Image channelIconImage = Image.byClass("freyja_char-header-user-menu__avatar");
 
+    /* Поисковая строка */
     private final Input searchInput = Input.byClass("wdp-search-line-module__input");
 
+    /* Кнопка поиска */
     private final Button searchButton = Button.byAriaLabel("Отправить форму поиска");
 
 
@@ -29,13 +32,9 @@ public class MainAfterLoginPage extends BasePage {
         searchInput.fill(searchQuery);
     }
 
-
     /* Нажатие на кнопку поиска */
     public void clickSearchButton() {
         searchButton.press();
     }
-
-
-
 
 }
