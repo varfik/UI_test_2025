@@ -6,7 +6,7 @@ package pages.elements;
 public class Input extends BaseElement {
     private static final String ID_XPATH = "//input[@id='%s']";
     private static final String NAME_XPATH = "//input[@name='%s']";
-    private static final String CLASS_XPATH = "//input[@name='%s']";
+    private static final String CLASS_XPATH = "//input[@class='%s']";
 
     private Input(String xpath, String param) {
         super(xpath, param);
