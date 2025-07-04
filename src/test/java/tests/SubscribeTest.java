@@ -16,6 +16,7 @@ public class SubscribeTest extends BaseTest {
      *  - авторизация
      *  - ввод в поиске "Практика Лэти Тестирование 2025"
      *  - нажатие на карточку канала
+     *  - если уже есть подписка на канал, нажатие кнопки "Вы подписаны", выбор "Отписаться"
      *  - нажатие кнопки "Подписаться"
      *  - проверка, что текст кнопки после нажатия соответствует "Вы подписаны" **/
     @Test
@@ -23,8 +24,11 @@ public class SubscribeTest extends BaseTest {
         MainAfterLoginPage mainPageAfterLogin = AuthService.auth();
         ResultsOfSearchPage resultsOfSearchPage = SearchService.search("Практика Лэти Тестирование 2025", SearchType.CHANNEL);
         MainChannelPage mainChannelPage = resultsOfSearchPage.clickChannelNameVideoCardModule();
+        if (mainChannelPage.isSubscribedButtonVisible()) {
+            mainChannelPage.clickSubscribedButton();
+            mainChannelPage.clickUnsubscribeButton();
+        }
         mainChannelPage.clickSubscribeButton();
-
         Assertions.assertTrue(mainChannelPage.isSubscribedButtonVisible(), "Текст кнопки не заменен на 'Вы подписаны'!");
     }
 
@@ -33,6 +37,7 @@ public class SubscribeTest extends BaseTest {
      *  - авторизация
      *  - ввод в поиске "Практика Лэти Тестирование 2025"
      *  - нажатие на карточку канала
+     *  - если ещё нет подписки на канал, нажатие кнопки "Подписаться"
      *  - нажатие кнопки "Вы подписаны"
      *  - нажатие "Отписаться"
      *  - проверка, что текст кнопки после нажатия соответствует "Подписаться" **/
@@ -41,6 +46,9 @@ public class SubscribeTest extends BaseTest {
         MainAfterLoginPage mainPageAfterLogin = AuthService.auth();
         ResultsOfSearchPage resultsOfSearchPage = SearchService.search("Практика Лэти Тестирование 2025", SearchType.CHANNEL);
         MainChannelPage mainChannelPage = resultsOfSearchPage.clickChannelNameVideoCardModule();
+        if (!mainChannelPage.isSubscribedButtonVisible()) {
+            mainChannelPage.clickSubscribeButton();
+        }
         mainChannelPage.clickSubscribedButton();
         mainChannelPage.clickUnsubscribeButton();
 
