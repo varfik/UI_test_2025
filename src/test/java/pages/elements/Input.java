@@ -7,6 +7,7 @@ public class Input extends BaseElement {
     private static final String ID_XPATH = "//input[@id='%s']";
     private static final String NAME_XPATH = "//input[@name='%s']";
     private static final String CLASS_XPATH = "//input[@class='%s']";
+    private static final String LABEL_XPATH = "//input[@label='%s']";
     private static final String WRAPPER_XPATH = "//div[contains(@class, '%s')]/input";
 
     private Input(String xpath, String param) {
@@ -32,6 +33,12 @@ public class Input extends BaseElement {
     public static Input byClass(String class_name) {
         return new Input(CLASS_XPATH, class_name);
     }
+
+    /* Формирование Xpath по label*/
+    public static Input byLabel(String label) {
+        return new Input(LABEL_XPATH, label);
+    }
+
 
     /* Формирование Xpath по wrapper*/
     public static Input byWrapper(String wrapper) {
