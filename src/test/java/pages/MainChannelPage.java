@@ -7,9 +7,13 @@ import javax.swing.*;
 /** Главная страница канала **/
 public class MainChannelPage extends BasePage {
 
-    /* Кнопка подписаться */
+    /* Кнопка "Подписаться" */
     private final Button subscribeButton = Button.byText("Подписаться");
+    /* Кнопка "Вы подписаны" */
     private final Button subscribedButton = Button.byText("Вы подписаны");
+
+    /* Кнопка "Отписаться" */
+    private final Button unsubscribeButton = Button.byText("Отписаться");
 
     /* Конструктор класса */
     public MainChannelPage() {
@@ -19,6 +23,16 @@ public class MainChannelPage extends BasePage {
     /* Нажатие на кнопку "Подписаться" */
     public void clickSubscribeButton() {
         subscribeButton.press();
+    }
+
+    /* Нажатие на кнопку "Вы подписаны" */
+    public void clickSubscribedButton() {
+        subscribedButton.press();
+    }
+
+    /* Нажатие на кнопку "Отписаться" */
+    public void clickUnsubscribeButton() {
+        unsubscribeButton.press();
     }
 
     /* На странице отображается кнопка "Вы подписаны" */
