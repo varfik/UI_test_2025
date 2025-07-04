@@ -1,21 +1,22 @@
 package pages;
 
-import pages.elements.ChannelCardModule;
+import pages.elements.CardModule;
 
 /** Страница результатов поиска **/
 public class ResultsOfSearchPage extends BasePage {
 
-    /* Название (кликабельное) канала, которое ищется */
-    private ChannelCardModule channelCardToSearch = ChannelCardModule.bySpan("Практика Лэти Тестирование 2025");
+    /* Карточка канала или видео (кликабельное название), которое ищется */
+    private CardModule cardModule;
 
     /* Конструктор класса */
-    public ResultsOfSearchPage() {
+    public ResultsOfSearchPage(String searchQuery) {
         super(ResultsOfSearchPage.class, "resultsOfSearch");
+        this.cardModule = CardModule.bySpan(searchQuery);
     }
 
-    /* Нажатие на название канала */
-    public MainChannelPage clickChannelCard() {
-        channelCardToSearch.press();
+    /* Нажатие на карточку элемента, который ищется */
+    public MainChannelPage clickCard() {
+        cardModule.press();
         return new MainChannelPage();
     }
 
