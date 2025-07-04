@@ -1,13 +1,13 @@
 package pages.elements;
 
-/** Карточка видео <a>, отображающаяся на странице результатов поиска **/
+/** Карточка видео <div>, отображающаяся на странице результатов поиска **/
 public class VideoCardModule extends BaseElement {
 
     /* Название видео */
-    private static final String VIDEO_TITLE_XPATH = "//div[contains(@class, 'wdp-card-description-module__titleWrapper')]//span[contains(text(), '%s')]";
+    private static final String VIDEO_TITLE_XPATH = "//div[contains(@class, 'titleWrapper')]//a[contains(text(), '%s')]";
 
     /* Название канала */
-    private static final String CHANNEL_NAME_XPATH = "//div[contains(@class, 'wdp-card-description-module__authorWrapper')]//span[contains(text(), '%s')]";
+    private static final String CHANNEL_NAME_XPATH = "//div[contains(@class, 'authorWrapper')]//a[contains(text(), '%s')]";
 
     private VideoCardModule(String xpath, String param) {
         super(xpath, param);
