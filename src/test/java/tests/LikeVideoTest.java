@@ -6,84 +6,88 @@ import services.AuthService;
 import services.SearchService;
 import services.SearchType;
 
-
+/* Тест проверяет действия "Поставить лайк" и "Удалить лайк" */
 public class LikeVideoTest extends BaseTest {
-    private VideoPage videoPage;
-
+    /*
+    Тест для действия "Поставить лайк":
+    * - Авторизация на сайте
+    * - Переход к заготовленному видео
+    * - Перед операцией проверяется возможность поставить лайк - при необходимости лайк убирается
+    * - Контроль кол-ва лайков до и после действия
+    * - Действие "Поставить лайк видео"
+    * - Проверка состояния лайка
+    * - Проверка кол-ва лайков после действия
+    */
     @Test
-    @DisplayName("Проверка постановки лайка")
     public void testLikeVideo() {
+        // Переход к видео
         MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
         ResultsOfSearchPage resultsOfSearchPage = SearchService.search(
                 "Зачем нужна математика? / Практика 2025 ЛЭТИ 3383",
                 SearchType.VIDEO
         );
-        videoPage = resultsOfSearchPage.clickVideoNameVideoCardModule();
+        VideoPage videoPage = resultsOfSearchPage.clickVideoNameVideoCardModule();
 
-        // Подготовка - убедимся, что лайк не поставлен
+        // Подготовка
         if (videoPage.isLiked()) {
-            waitFor(3000);
             videoPage.unlikeVideo();
-            waitFor(3000);
             Assertions.assertFalse(videoPage.isLiked(), "Лайк должен быть неактивен перед тестом");
         }
 
-        // Получаем начальное количество лайков
+        // Начальное количество лайков
         int initialLikes = videoPage.getLikesCount(0);
 
         // Действие - ставим лайк
         videoPage.likeVideo();
-        waitFor(5000);
 
-        // Проверяем состояние лайка
+        // Проверка состояния лайка
         Assertions.assertTrue(videoPage.isLiked(), "Лайк должен стать активным");
 
-        // Проверяем счетчик лайков
+        // Проверка счетчика лайков
         int actualLikes = videoPage.getLikesCount(initialLikes + 1);
         Assertions.assertEquals(initialLikes + 1, actualLikes,
                 "Количество лайков должно увеличиться на 1");
     }
 
+    /*
+    Тест для действия "Удалить лайк":
+    * - Авторизация на сайте
+    * - Переход к заготовленному видео
+    * - Перед операцией проверяется возможность удалить лайк - при необходимости лайк ставится
+    * - Контроль кол-ва лайков до и после действия
+    * - Действие "Удалить лайк видео"
+    * - Проверка состояния лайка
+    * - Проверка кол-ва лайков после действия
+    */
     @Test
-    @DisplayName("Проверка удаления лайка")
     public void testUnlikeVideo() {
+        // Переход к видео
         MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
         ResultsOfSearchPage resultsOfSearchPage = SearchService.search(
                 "Зачем нужна математика? / Практика 2025 ЛЭТИ 3383",
                 SearchType.VIDEO
         );
-        videoPage = resultsOfSearchPage.clickVideoNameVideoCardModule();
+        VideoPage videoPage = resultsOfSearchPage.clickVideoNameVideoCardModule();
 
-        // Подготовка - убедимся, что лайк поставлен
+        // Подготовка
         if (!videoPage.isLiked()) {
-            waitFor(3000);
             videoPage.likeVideo();
-            waitFor(3000);
             Assertions.assertTrue(videoPage.isLiked(), "Лайк должен быть активен перед тестом");
         }
 
-        // Получаем начальное количество лайков
+        // Начальное количество лайков
         int initialLikes = videoPage.getLikesCount(0);
 
         // Действие
         videoPage.unlikeVideo();
-        waitFor(5000);
 
-        // Проверяем состояние лайка
+        // Проверка состояния лайка
         Assertions.assertFalse(videoPage.isLiked(), "Лайк должен стать неактивным");
 
-        // Проверяем счетчик лайков
+        // Проверка счетчика лайков
         int actualLikes = videoPage.getLikesCount(initialLikes - 1);
         Assertions.assertEquals(initialLikes - 1, actualLikes,
                 "Количество лайков должно уменьшиться на 1");
 
-    }
-
-    private void waitFor(long millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
     }
 }

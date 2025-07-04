@@ -26,7 +26,7 @@ public class Button extends BaseElement {
         return new Button(ID_XPATH, id);
     }
 
-    /* Формирование Xpath по содежащемуся тексту */
+    /* Формирование Xpath по содержащемуся тексту */
     public static Button byText(String text) {
         return new Button(TEXT_XPATH, text);
     }
@@ -38,12 +38,12 @@ public class Button extends BaseElement {
 
     /* Возвращает видимый текст элемента кнопки.*/
     public String getText() {
-        return this.baseElement.getText();
+        return baseElement.getText();
     }
 
     /* Получает значение указанного атрибута элемента кнопки.*/
     public String getAttribute(String attributeName) {
-        return this.baseElement.getAttribute(attributeName);
+        return baseElement.getAttribute(attributeName);
     }
 }
 

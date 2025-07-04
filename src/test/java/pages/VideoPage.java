@@ -1,20 +1,25 @@
 package pages;
 import pages.elements.Button;
-import java.util.Optional;
-import java.util.NoSuchElementException;
+import com.codeborne.selenide.Condition;
+import static com.codeborne.selenide.Selenide.*;
 
 public class VideoPage extends BasePage {
-    // Кнопка лайка
+    /* Конструктор класса */
+    public VideoPage() {
+        super(VideoPage.class, "video");
+    }
+
+    /* Кнопка лайка */
     private final Button likeButton = Button.byXPath(
             "//button[contains(@class, 'wdp-video-like-dislike-reactions-module__reaction') " +
                     "and @title='Нравится']");
 
-    // SVG элемент для проверки состояния лайка
+    /* SVG элемент для проверки состояния лайка */
     private final Button likeSvg = Button.byXPath(
             "//button[contains(@class, 'wdp-video-like-dislike-reactions-module__reaction')]" +
                     "//*[local-name()='svg' and @fill]");
 
-    // Счетчик лайков
+    /* Счетчик лайков */
     private final Button likesCounter = Button.byXPath(
             "//span[contains(@class, 'wdp-video-like-dislike-reactions-module__counter')]");
 
@@ -22,23 +27,18 @@ public class VideoPage extends BasePage {
     /* Поле для комментария (Input) */
     /* Кнопка для отправки комментария */
 
-    /* Конструктор класса */
-    public VideoPage() {
-        super(VideoPage.class, "video");
-    }
 
-
-
-    /**
-     * Проверить, активен ли лайк
-     */
+    /*
+    Проверка, выставлен ли лайк - возвращает булево значение:
+    - Проверка цвета кнопки лайка (не закрашен - кнопка сейчас не активна)
+    - Проверка состояния кнопки ("active" - лайк уже стоит)
+    - Если две первые проверки прошли, возвращает true, иначе - false
+    */
     public boolean isLiked() {
         try {
-            // 1. Проверка цвета
             String fill = likeSvg.getAttribute("fill");
             if (!"none".equals(fill)) return true;
 
-            // 2. Доп. проверка
             String classes = likeButton.getAttribute("class");
             return classes.contains("active");
         } catch (Exception e) {
@@ -46,9 +46,10 @@ public class VideoPage extends BasePage {
         }
     }
 
-    /**
-     * Поставить лайк
-     */
+    /*
+    Действие "Поставить лайк":
+    - Если лайк еще не стоит, нажимается кнопка лайка
+    */
     public VideoPage likeVideo() {
         if (!isLiked()) {
             likeButton.press();
@@ -56,9 +57,10 @@ public class VideoPage extends BasePage {
         return this;
     }
 
-    /**
-     * Убрать лайк
-     */
+    /*
+    Действие "Удалить лайк":
+    - Если лайк стоит, нажимается кнопка лайка
+    */
     public VideoPage unlikeVideo() {
         if (isLiked()) {
             likeButton.press();
@@ -67,8 +69,13 @@ public class VideoPage extends BasePage {
     }
 
 
-    /**
-     * Метод получения количества лайков
+    /*
+    Метод получения количества лайков:
+    - Проверяется существование элемента, отвечающего за счетчик лайков (при 0 лайков он не существует):
+    -- Если он не существует, то возвращается дефолтное значение
+    - Получение и обработка текстового вида числа
+    - Возвращается полученное число лайков
+    - При неуспехе возвращается дефолтное значение
      */
     public int getLikesCount(int defaultValue) {
         try {
@@ -76,7 +83,6 @@ public class VideoPage extends BasePage {
                 return defaultValue;
             }
 
-            // 2. Получение и обработка текста
             String text = likesCounter.getText()
                     .replace("тыс.", "000")
                     .replaceAll("[^0-9]", "");
@@ -88,10 +94,11 @@ public class VideoPage extends BasePage {
         }
     }
 
-
-    /**
-     * Проверяет существование элемента
-     */
+    /*
+    Проверяет существование элемента:
+    - Попытка получить текст с кнопки:
+    -- При успехе - кнопка существует, иначе - нет
+    */
     public boolean isLikesCounterExists() {
         try {
             likesCounter.getText();
@@ -100,4 +107,5 @@ public class VideoPage extends BasePage {
             return false;
         }
     }
+
 }
