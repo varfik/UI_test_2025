@@ -35,6 +35,16 @@ public class Button extends BaseElement {
     public static Button byXPath(String xpath) {
         return new Button(xpath, "");
     }
+
+    /* Возвращает видимый текст элемента кнопки.*/
+    public String getText() {
+        return this.baseElement.getText();
+    }
+
+    /* Получает значение указанного атрибута элемента кнопки.*/
+    public String getAttribute(String attributeName) {
+        return this.baseElement.getAttribute(attributeName);
+    }
 }
 
 
