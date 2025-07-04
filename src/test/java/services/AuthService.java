@@ -4,6 +4,7 @@ import pages.MainAfterLoginPage;
 import pages.MainPage;
 
 /** Сервис авторизации пользователя
+ *  Возвращает авторизированную главную страницу (mainAfterLoginPage)
  *  Выполняет следующие действия для входа в систему:
  *      - открытие главной страницы
  *      - закрытие всплывших окон
@@ -12,7 +13,8 @@ import pages.MainPage;
  *      - нажатие кнопки для продолжения
  *      - ввод пароля
  *      - нажатие кнопки "Войти" (переход на авторизованную страницу)
- *      - закрытие всплывших окон **/
+ *      - закрытие всплывших окон
+ *      **/
 public class AuthService {
     public static MainAfterLoginPage auth() {
         MainPage mainPage = MainPage.openMainPage();
