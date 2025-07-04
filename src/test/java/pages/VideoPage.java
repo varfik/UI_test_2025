@@ -1,7 +1,5 @@
 package pages;
 import pages.elements.Button;
-import com.codeborne.selenide.Condition;
-import static com.codeborne.selenide.Selenide.*;
 
 public class VideoPage extends BasePage {
     /* Конструктор класса */
