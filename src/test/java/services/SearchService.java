@@ -9,10 +9,10 @@ import pages.ResultsOfSearchPage;
  *      - ввод запроса для поиска
  *      - нажатие на кнопку поиска (переход на страницу результатов) **/
 public class SearchService {
-    public static ResultsOfSearchPage search(String searchQuery) {
+    public static ResultsOfSearchPage search(String searchQuery, SearchType type) {
         MainAfterLoginPage mainAfterLoginPage = new MainAfterLoginPage();
         mainAfterLoginPage.fillSearchInput(searchQuery);
         mainAfterLoginPage.clickSearchButton();
-        return new ResultsOfSearchPage(searchQuery);
+        return new ResultsOfSearchPage(searchQuery, type);
     }
 }
