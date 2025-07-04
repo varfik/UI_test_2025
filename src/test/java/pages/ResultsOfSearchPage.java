@@ -1,23 +1,37 @@
 package pages;
 
-import pages.elements.CardModule;
+import pages.elements.VideoCardModule;
+import services.SearchType;
 
 /** Страница результатов поиска **/
 public class ResultsOfSearchPage extends BasePage {
 
-    /* Карточка канала или видео (кликабельное название), которое ищется */
-    private CardModule cardModule;
+
+
+    /* Карточка видео, которая содержит название видео или канала, которое ищется */
+    private VideoCardModule videoCardModule;
 
     /* Конструктор класса */
-    public ResultsOfSearchPage(String searchQuery) {
+    public ResultsOfSearchPage(String searchQuery, SearchType type) {
         super(ResultsOfSearchPage.class, "resultsOfSearch");
-        this.cardModule = CardModule.bySpan(searchQuery);
+
+        if (type == SearchType.VIDEO) {
+            this.videoCardModule = VideoCardModule.byVideoTitle(searchQuery);
+        } else if (type == SearchType.CHANNEL) {
+            this.videoCardModule = VideoCardModule.byChannelName(searchQuery);
+        }
     }
 
-    /* Нажатие на карточку элемента, который ищется */
-    public MainChannelPage clickCard() {
-        cardModule.press();
+    /* Нажатие на название канала в карточке видео */
+    public MainChannelPage clickChannelNameVideoCardModule() {
+        videoCardModule.press();
         return new MainChannelPage();
+    }
+
+    /* Нажатие на название видео в карточке видео */
+    public VideoPage clickVideoNameVideoCardModule() {
+        videoCardModule.press();
+        return new VideoPage();
     }
 
 }
