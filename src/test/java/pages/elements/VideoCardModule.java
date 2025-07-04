@@ -1,20 +1,29 @@
 package pages.elements;
 
-/** Карточка канала <a> 0**/
-public class CardModule extends BaseElement {
-    private static final String SPAN_XPATH = "//a[.//span[contains(., '%s')]]";
+/** Карточка видео <a>, отображающаяся на странице результатов поиска **/
+public class VideoCardModule extends BaseElement {
 
-    /* Конструктор класса */
-    private CardModule(String xpath, String param) {
+    /* Название видео */
+    private static final String VIDEO_TITLE_XPATH = "//div[contains(@class, 'wdp-card-description-module__titleWrapper')]//span[contains(text(), '%s')]";
+
+    /* Название канала */
+    private static final String CHANNEL_NAME_XPATH = "//div[contains(@class, 'wdp-card-description-module__authorWrapper')]//span[contains(text(), '%s')]";
+
+    private VideoCardModule(String xpath, String param) {
         super(xpath, param);
     }
 
-    /* Формированию Xpath по span */
-    public static CardModule bySpan(String spanText) {
-        return new CardModule(SPAN_XPATH, spanText);
+    /** Формирование Xpath карточки по названию видео */
+    public static VideoCardModule byVideoTitle(String title) {
+        return new VideoCardModule(VIDEO_TITLE_XPATH, title);
     }
 
-    /* Нажатие на карточку канала */
+    /** Формирование Xpath карточки по названию канала */
+    public static VideoCardModule byChannelName(String channelName) {
+        return new VideoCardModule(CHANNEL_NAME_XPATH, channelName);
+    }
+
+    /** Клик по карточке (по названию видео или канала) */
     public void press() {
         baseElement.click();
     }
