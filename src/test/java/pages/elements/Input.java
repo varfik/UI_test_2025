@@ -40,6 +40,6 @@ public class Input extends BaseElement {
 
     /* Получение значения в поле */
     public String getValue() {
-        return baseElement.getValue();g
+        return baseElement.getValue();
     }
 }
