@@ -26,7 +26,7 @@ public class Button extends BaseElement {
         return new Button(ID_XPATH, id);
     }
 
-    /* Формирование Xpath по содежащемуся тексту */
+    /* Формирование Xpath по содержащемуся тексту */
     public static Button byText(String text) {
         return new Button(TEXT_XPATH, text);
     }
