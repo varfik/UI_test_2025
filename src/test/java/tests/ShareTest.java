@@ -20,7 +20,8 @@ public class ShareTest extends BaseTest {
      * - получение URL текущей страницы без query-параметров (split("\\?")[0])
      * - проверка, что ссылки совпадают
      **/
-    @Test public void copiedLinkEqualsOpen() {
+    @Test
+    public void copiedLinkEqualsOpen() {
         MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
         ResultsOfSearchPage resultsOfSearchPage = SearchService.search(
                 "Космос и его составляющие / Практика 2025 ЛЭТИ 3383", SearchType.VIDEO);
