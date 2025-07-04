@@ -1,5 +1,4 @@
 package pages.elements;
-import java.util.List;
 
 /** Класс элемента типа Button **/
 public class Button extends BaseElement {
@@ -32,15 +31,9 @@ public class Button extends BaseElement {
         return new Button(TEXT_XPATH, text);
     }
 
+    /* Формирование Xpath согласно полученной Xpath строке */
     public static Button byXPath(String xpath) {
         return new Button(xpath, "");
-    }
-
-    public static Button findOneVisible(List<Button> buttons) {
-        return buttons.stream()
-                .filter(Button::isDisplayed)
-                .findFirst()
-                .orElseThrow();
     }
 }
 
