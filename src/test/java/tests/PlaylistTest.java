@@ -33,8 +33,10 @@ public class PlaylistTest {
         ChannelPlaylistsPage playlistsPage = channelPage.goToPlaylists();
         playlistsPage.savePlaylist("Тестовый плейлист");
         PlaylistsPage myPlaylists = channelPage.goToMyPlaylists();
+      
         Assertions.assertFalse(myPlaylists.isPlaylistVisible("Тестовый плейлист"), "Плейлист не отображается!");
         myPlaylists.deletePlaylist("Тестовый плейлист");
+      
         Assertions.assertTrue(myPlaylists.isPlaylistVisible("Тестовый плейлист"), "Плейлист не удален!");
     }
 }
