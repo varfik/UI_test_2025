@@ -5,6 +5,8 @@ public class Button extends BaseElement {
     private static final String ARIA_LABEL_XPATH = "//button[@aria-label='%s']";
     private static final String TEXT_XPATH = "//button[contains(., '%s')]";
 
+    private static final String TEXT_INSIDE_A_XPATH = "//a[contains(., '%s')]";
+
     private static final String ID_XPATH = "//button[@id='%s']";
 
     private Button(String xpath, String param) {
@@ -26,9 +28,14 @@ public class Button extends BaseElement {
         return new Button(ID_XPATH, id);
     }
 
-    /* Формирование Xpath по содержащемуся тексту */
+    /* Формирование Xpath по содержащемуся тексту  в <button> */
     public static Button byText(String text) {
         return new Button(TEXT_XPATH, text);
+    }
+  
+    /* Формирование Xpath по содежащемуся тексту в <a> */
+    public static Button byTextInsideA(String text) {
+        return new Button(TEXT_INSIDE_A_XPATH, text);
     }
 
     /* Формирование Xpath согласно полученной Xpath строке */
@@ -44,7 +51,7 @@ public class Button extends BaseElement {
     /* Получает значение указанного атрибута элемента кнопки.*/
     public String getAttribute(String attributeName) {
         return baseElement.getAttribute(attributeName);
-    }
+
 }
 
 
