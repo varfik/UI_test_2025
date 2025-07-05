@@ -66,13 +66,13 @@ public class MainAfterLoginPage extends BasePage {
         searchButton.press();
     }
 
-    /**
-     * Переход на страницу плейлистов
-     */
-    public PlaylistsPage goToPlaylists() {
-        playlistsButton.press();
-        return new PlaylistsPage();
-    }
+//    /**
+//     * Переход на страницу плейлистов
+//     */
+//    public PlaylistsPage goToPlaylists() {
+//        playlistsButton.press();
+//        return new PlaylistsPage();
+//    }
 
     /**
      * Нажатие на иконку пользователя

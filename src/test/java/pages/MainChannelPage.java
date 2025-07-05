@@ -61,19 +61,19 @@ public class MainChannelPage extends BasePage {
         return subscribedButton.isDisplayed();
     }
 
-    /**
-     * Переход на страницу плейлистов канала
-     */
-    public ChannelPlaylistsPage goToPlaylists() {
-        playlistsButton.press();
-        return new ChannelPlaylistsPage();
-    }
-
-    /**
-     * Переход на страницу плейлистов пользователя
-     */
-    public PlaylistsPage goToMyPlaylists() {
-        playlistsButton.press();
-        return new PlaylistsPage();
-    }
+//    /**
+//     * Переход на страницу плейлистов канала
+//     */
+//    public ChannelPlaylistsPage goToPlaylists() {
+//        playlistsButton.press();
+//        return new ChannelPlaylistsPage();
+//    }
+//
+//    /**
+//     * Переход на страницу плейлистов пользователя
+//     */
+//    public PlaylistsPage goToMyPlaylists() {
+//        playlistsButton.press();
+//        return new PlaylistsPage();
+//    }
 }
