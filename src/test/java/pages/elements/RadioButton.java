@@ -2,10 +2,12 @@ package pages.elements;
 
 import org.openqa.selenium.support.Color;
 
+import static com.codeborne.selenide.Selenide.actions;
+
 /** Элемент типа "Переключатель" **/
 public class RadioButton extends BaseElement {
 
-    private static final String LABEL_TEXT_XPATH = "//label[.//div[text()='%s']]";
+    private static final String LABEL_TEXT_XPATH = "//label[.//div[text()='%s']]/div";
 
     private RadioButton(String xpath, String param) {
         super(xpath, param);
@@ -24,6 +26,7 @@ public class RadioButton extends BaseElement {
     /* Получение цвета заднего фона элемента в формате () */
     public String getBackgroundColor() {
         try {
+            actions().moveByOffset(0, 0).perform();
             String cssColor = baseElement.getCssValue("background-color");
             return Color.fromString(cssColor).asHex();
         } catch (Exception e) {
