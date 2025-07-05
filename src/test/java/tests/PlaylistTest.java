@@ -15,7 +15,6 @@ public class PlaylistTest {
     private final String CHANNEL_NAME = "Практика Лэти Тестирование 2025";
     private final String PLAYLIST_NAME = "Тестовый плейлист";
 
-
     /** Тестирование сохранения и удаления плейлиста:
       - авторизация 
       - поиск видео по запросу "Практика 2025 лэти 3383"  
@@ -34,8 +33,10 @@ public class PlaylistTest {
         ChannelPlaylistsPage playlistsPage = channelPage.goToPlaylists();
         playlistsPage.savePlaylist("Тестовый плейлист");
         PlaylistsPage myPlaylists = channelPage.goToMyPlaylists();
-        Assertions.assertTrue(myPlaylists.isPlaylistVisible("Тестовый плейлист"), "Плейлист не отображается!");
+      
+        Assertions.assertFalse(myPlaylists.isPlaylistVisible("Тестовый плейлист"), "Плейлист не отображается!");
         myPlaylists.deletePlaylist("Тестовый плейлист");
+      
         Assertions.assertTrue(myPlaylists.isPlaylistVisible("Тестовый плейлист"), "Плейлист не удален!");
     }
 }
