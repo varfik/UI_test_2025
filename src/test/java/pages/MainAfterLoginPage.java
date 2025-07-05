@@ -7,7 +7,9 @@ import pages.elements.Input;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/** Главная страница Rutube.ru после авторизации **/
+/**
+ * Главная страница Rutube.ru после авторизации
+ **/
 public class MainAfterLoginPage extends BasePage {
 
     /* Иконка канала пользователя */
@@ -18,6 +20,9 @@ public class MainAfterLoginPage extends BasePage {
 
     /* Кнопка поиска */
     private final Button searchButton = Button.byAriaLabel("Отправить форму поиска");
+
+    /* Кнопка "Профиль" */
+    private final Button profileButton = Button.byTextInsideA("Профиль");
 
 
     /* Конструктор класса */
@@ -40,14 +45,22 @@ public class MainAfterLoginPage extends BasePage {
         searchButton.press();
     }
 
+    /* Нажатие на иконку пользователя */
+    public void clickChannelIconImage() {
+        channelIconImage.press();
+    }
+
+    /* Нажатие на раздел "Профиль" */
+    public ProfilePage clickProfileButton() {
+        profileButton.press();
+        return new ProfilePage();
+    }
+
     /* Закрытие всплывающих окон */
     public void closePopups() {
-        List<Button> closeButtons = List.of(
-                Button.byAriaLabel("Закрыть"),
-                Button.byText("Ок"),
-                Button.byText("Не надо"))
-                                        .stream()
-                                        .filter(Button::isDisplayed)
+
+        List<Button> closeButtons = List.of(Button.byAriaLabel("Закрыть"), Button.byText("Ок"),
+                                            Button.byText("Не надо")).stream().filter(Button::isDisplayed)
                                         .collect(Collectors.toList());
 
         for (Button button : closeButtons) {

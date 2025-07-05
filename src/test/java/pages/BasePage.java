@@ -2,6 +2,8 @@ package pages;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
+
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
 
@@ -21,6 +23,11 @@ public class BasePage {
     public <T extends BasePage> T refresh() {
         Selenide.refresh();
         return (T) page(pageClass);
+    }
+
+    /* Получение URl страницы */
+    public String getCurrentUrl() {
+        return WebDriverRunner.url();
     }
 }
 

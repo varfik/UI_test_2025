@@ -5,7 +5,12 @@ import pages.elements.Input;
 import pages.elements.CommentModule;
 
 public class VideoPage extends BasePage {
-    /* Кнопка лайка (Button) */
+    /* Кнопка "Поделиться */
+    private final Button shareButton = Button.byText("Поделиться");
+
+    /* Поле в "Поделиться" с ссылкой на видео */
+    private final Input shareInput = Input.byWrapper("inputWrapper");
+  
     /* Поле для комментария (Input) */
     private final Input commentInput = Input.byClass("wdp-comment-input-module__textarea");
 
@@ -44,4 +49,14 @@ public class VideoPage extends BasePage {
     public void deleteCommentByAuthor(String authorName) {
         findCommentByAuthor(authorName).deleteComment();
     }
+    /* Нажатие на кнопку "Поделиться" */
+    public void clickShareButton() {
+        shareButton.press();
+    }
+
+    /* Получения ссылки из поля "Поделиться" */
+    public String getLinkToShare() {
+        return shareInput.getValue();
+    }
+
 }

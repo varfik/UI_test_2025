@@ -6,8 +6,6 @@ import services.SearchType;
 /** Страница результатов поиска **/
 public class ResultsOfSearchPage extends BasePage {
 
-
-
     /* Карточка видео, которая содержит название видео или канала, которое ищется */
     private VideoCardModule videoCardModule;
 
