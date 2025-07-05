@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import pages.elements.*;
-import tests.TestConfig;
+import tests.Config;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -83,7 +83,7 @@ public class MainPage extends BasePage {
      * Ввод номера телефона
      */
     public void fillPhone() {
-        phoneInput.fill(TestConfig.getPhone());
+        phoneInput.fill(Config.getPhone());
     }
 
     /**
@@ -97,7 +97,7 @@ public class MainPage extends BasePage {
      * Ввод пароля
      */
     public void fillPassword() {
-        passwordInput.fill(TestConfig.getPassword());
+        passwordInput.fill(Config.getPassword());
     }
 
     /**
