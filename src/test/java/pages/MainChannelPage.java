@@ -15,6 +15,9 @@ public class MainChannelPage extends BasePage {
     /* Кнопка "Отписаться" */
     private final Button unsubscribeButton = Button.byText("Отписаться");
 
+    /* Кнопка "Плейлисты"*/
+    private final Button playlistsButton = Button.byXPath("//a[contains(@href,'/playlists/')]");
+
     /* Конструктор класса */
     public MainChannelPage() {
         super(MainChannelPage.class, "mainChannel");
@@ -38,5 +41,17 @@ public class MainChannelPage extends BasePage {
     /* На странице отображается кнопка "Вы подписаны" */
     public boolean isSubscribedButtonVisible() {
         return subscribedButton.isDisplayed();
+    }
+
+    /* Переход на страницу плейлистов канала */
+    public ChannelPlaylistsPage goToPlaylists() {
+        playlistsButton.press();
+        return new ChannelPlaylistsPage();
+    }
+
+    /* Переход на страницу плейлистов пользователя */
+    public PlaylistsPage goToMyPlaylists() {
+        playlistsButton.press();
+        return new PlaylistsPage();
     }
 }
