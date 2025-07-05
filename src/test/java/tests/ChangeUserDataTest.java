@@ -9,11 +9,11 @@ import services.AuthService;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Изменение данных о пользователе
- **/
+ * @author Varfolomeeva
+ */
 public class ChangeUserDataTest extends BaseTest {
     /**
      * Тест проверяет, что данные в поле "Имя и название канала" изменены на "Арина"
@@ -24,7 +24,7 @@ public class ChangeUserDataTest extends BaseTest {
      * - ввод "Арина" в поле "Имя и название канала"
      * - нажатие кнопки "Сохранить"
      * - проверка, что поле содержит "Арина"
-     **/
+     */
     @Test
     public void NameChangedInUserProfile() {
         MainAfterLoginPage mainPageAfterLogin = AuthService.auth();
@@ -53,7 +53,7 @@ public class ChangeUserDataTest extends BaseTest {
      * - ввод "11.04.2005" в поле "Дата рождения"
      * - нажатие кнопки "Сохранить"
      * - проверка, что поле содержит "11.04.2005"
-     **/
+     */
     @Test
     public void DateChangedInUserProfile() {
         MainAfterLoginPage mainPageAfterLogin = AuthService.auth();
@@ -79,7 +79,7 @@ public class ChangeUserDataTest extends BaseTest {
      * - нажатие на кнопку "Изменить личные данные"
      * - выбор поля со значением "Женский" в переключателе пола
      * - проверка, что цвет поля со значением "Женский" имеет голубой цвет
-     **/
+     */
     @Test
     public void GenderChangedInUserProfile() {
         MainAfterLoginPage mainPageAfterLogin = AuthService.auth();
