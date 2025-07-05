@@ -3,12 +3,12 @@ package pages;
 import pages.elements.VideoCardModule;
 import services.SearchType;
 
+import java.util.NoSuchElementException;
+
 /** Страница результатов поиска **/
 public class ResultsOfSearchPage extends BasePage {
 
-
-
-    /* Карточка видео, которая содержит название видео или канала, которое ищется */
+    /* Карточка видео */
     private VideoCardModule videoCardModule;
 
     /* Конструктор класса */
@@ -34,4 +34,12 @@ public class ResultsOfSearchPage extends BasePage {
         return new VideoPage();
     }
 
+    /* Проверяет, отображается ли хотя бы одна карточка видео */
+    public boolean isVideoCardDisplayed() {
+        try {
+            return videoCardModule != null && videoCardModule.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
 }
