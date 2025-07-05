@@ -51,6 +51,7 @@ public class Button extends BaseElement {
     /* Получает значение указанного атрибута элемента кнопки.*/
     public String getAttribute(String attributeName) {
         return baseElement.getAttribute(attributeName);
+    }
 
 }
 
