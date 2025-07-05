@@ -9,6 +9,7 @@ public class VideoCardModule extends BaseElement {
     /* Название канала */
     private static final String CHANNEL_NAME_XPATH = "//div[contains(@class, 'authorWrapper')]//a[contains(text(), '%s')]";
 
+    /* Точный поиск карточки по названию */
     private VideoCardModule(String xpath, String param) {
         super(xpath, param);
     }
@@ -28,4 +29,13 @@ public class VideoCardModule extends BaseElement {
         baseElement.click();
     }
 
+    /** Отображение карточки видео */
+    public boolean isCardsDisplayed() {
+        return baseElement.isDisplayed();
+    }
+    /** Точный поиск **/
+    public static VideoCardModule byExactVideoTitle(String title) {
+        String exactXpath = String.format("//a[normalize-space()='%s']", title);
+        return new VideoCardModule(exactXpath, title);
+    }
 }

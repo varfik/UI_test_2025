@@ -19,6 +19,10 @@ public class MainAfterLoginPage extends BasePage {
     /* Кнопка поиска */
     private final Button searchButton = Button.byAriaLabel("Отправить форму поиска");
 
+    /* Кнопка перехода в плейлисты */
+    private final Button playlistsButton = Button.byXPath(
+            "//a[contains(@class,'wdp-link-module__link') and contains(@href,'/my/playlists/')]"
+    );
 
     /* Конструктор класса */
     public MainAfterLoginPage() {
@@ -38,6 +42,12 @@ public class MainAfterLoginPage extends BasePage {
     /* Нажатие на кнопку поиска */
     public void clickSearchButton() {
         searchButton.press();
+    }
+
+    /* Переход на страницу плейлистов */
+    public PlaylistsPage goToPlaylists() {
+        playlistsButton.press();
+        return new PlaylistsPage();
     }
 
     /* Закрытие всплывающих окон */
