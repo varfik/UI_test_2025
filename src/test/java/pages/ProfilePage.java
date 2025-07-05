@@ -3,7 +3,7 @@ package pages;
 import pages.elements.Button;
 import pages.elements.Input;
 import pages.elements.RadioButton;
-import pages.elements.TextElement;
+import pages.elements.Text;
 
 /**
  * Страница профиля пользователя
@@ -18,9 +18,9 @@ public class ProfilePage extends BasePage {
 
     private final RadioButton femaleRadioButton = RadioButton.byLabelText("Женский");
 
-    private final TextElement dateText = TextElement.byLabelText("Дата рождения");
+    private final Text dateText = Text.byLabelText("Дата рождения");
 
-    private final TextElement nameText = TextElement.byLabelText("Имя и название канала");
+    private final Text nameText = Text.byLabelText("Имя и название канала");
 
     /**
      * Конструктор класса
