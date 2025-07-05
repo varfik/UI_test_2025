@@ -9,8 +9,8 @@ public class ChannelPlaylistsPage extends BasePage {
     }
 
     public void savePlaylist(String playlistName) {
-        PlaylistCard playlist = new PlaylistCard(playlistName);
-        playlist.openMenu()
+        new PlaylistCard(playlistName)
+                .openMenu()
                 .selectAction("Сохранить плейлист");
     }
 }
