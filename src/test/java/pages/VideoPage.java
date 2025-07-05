@@ -113,6 +113,8 @@ public class VideoPage extends BasePage {
         } catch (Exception e) {
             return false;
         }
+
+    }
       
     /* Нажатие на кнопку "Поделиться" */
     public void clickShareButton() {
