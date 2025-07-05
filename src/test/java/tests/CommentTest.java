@@ -11,7 +11,7 @@ import services.SearchType;
 
 /**
  * Комментарии
- * @author Zemerova
+ * @author Soldunova
  **/
 public class CommentTest extends BaseTest {
     /**
@@ -21,7 +21,7 @@ public class CommentTest extends BaseTest {
      * - ввод в поле "Ваш комментарий" строки "Хорошее видео!"
      * - нажатие кнопки "Отправить"
      * - проверка, что введённый комментарий отображается под видео
-     **/
+     */
     @Test
     public void AddedCommentIsDisplayed() {
         MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
@@ -48,7 +48,7 @@ public class CommentTest extends BaseTest {
      * - нажатие на кнопку "Троеточие" для комментария
      * - нажатие кнопки "Удалить"
      * - проверка, что удалённый комментарий не отображается под видео
-     **/
+     */
     @Test
     public void DeletedCommentIsNotDisplayed() {
         MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
