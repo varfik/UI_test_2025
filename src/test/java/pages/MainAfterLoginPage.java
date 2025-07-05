@@ -72,4 +72,18 @@ public class MainAfterLoginPage extends BasePage {
         }
     }
 
+    /* Открытие раздела Истории просмотров */
+    public HistoryVideoPage openHistoryVideo() {
+        Button.byXPath(
+                "//section[@aria-label='Моё']" +
+                        "//ul[@class='menu-my-group-links-module__linksList']" +
+                        "//a[contains(@href, '/my/history/')]" +
+                        "/div[@class='menu-link-module__link']" +
+                        "/div[@class='menu-link-module__linkContent' and text()='История просмотра']" +
+                        "/ancestor::a"
+        ).press();
+
+        return new HistoryVideoPage();
+    }
+
 }
