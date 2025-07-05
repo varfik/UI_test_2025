@@ -11,7 +11,7 @@ public class LoginTest extends BaseTest {
      * - получение тестового телефона из конфига (TestConfig.getPhone())
      * - получение тестового пароля из конфига (TestConfig.getPassword())
      * - вывод значения в стандартный вывод (System.out)
-     **/
+     */
     @Test
     public void showConfig() {
         System.out.println("Phone: " + TestConfig.getPhone());
@@ -22,7 +22,7 @@ public class LoginTest extends BaseTest {
      * Тест проверяет успешность авторизации через отображение иконки пользователя
      * - авторизация пользователя
      * - проверка видимости иконки канала на главной странице после входа (isChannelIconVisible() = true)
-     **/
+     */
     @Test
     public void userIconIsDisplayedAfterSuccessfulLogin() {
         MainAfterLoginPage mainPageAfterLogin = AuthService.auth();

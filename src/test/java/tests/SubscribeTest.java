@@ -9,7 +9,9 @@ import services.AuthService;
 import services.SearchService;
 import services.SearchType;
 
-/** Подписка (отписка) на канал **/
+/**
+ * Подписка (отписка) на канал
+ */
 public class SubscribeTest extends BaseTest {
     /**
      * Тест проверяет подписку на канал:
@@ -19,7 +21,7 @@ public class SubscribeTest extends BaseTest {
      * - если уже есть подписка на канал, нажатие кнопки "Вы подписаны", выбор "Отписаться"
      * - нажатие кнопки "Подписаться"
      * - проверка, что текст кнопки после нажатия соответствует "Вы подписаны"
-     **/
+     */
     @Test
     public void subscribeButtonIsChangedAfterSubscription() {
         MainAfterLoginPage mainPageAfterLogin = AuthService.auth();
@@ -44,7 +46,7 @@ public class SubscribeTest extends BaseTest {
      * - нажатие кнопки "Вы подписаны"
      * - нажатие "Отписаться"
      * - проверка, что текст кнопки после нажатия соответствует "Подписаться"
-     **/
+     */
     @Test
     public void subscribeButtonIsChangedAfterUnsubscription() {
         MainAfterLoginPage mainPageAfterLogin = AuthService.auth();
@@ -56,7 +58,6 @@ public class SubscribeTest extends BaseTest {
         }
         mainChannelPage.clickSubscribedButton();
         mainChannelPage.clickUnsubscribeButton();
-
         Assertions.assertFalse(mainChannelPage.isSubscribedButtonVisible(),
                                "Текст кнопки не заменен на 'Подписаться'!");
     }

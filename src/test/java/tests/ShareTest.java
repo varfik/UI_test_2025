@@ -9,6 +9,10 @@ import services.AuthService;
 import services.SearchService;
 import services.SearchType;
 
+/**
+ * Поделиться видео
+ * @author Varfolomeeva
+ */
 public class ShareTest extends BaseTest {
     /**
      * Тест проверяет, что скопированная ссылка при действии "Поделиться" совпадает с ссылкой открытого видео
@@ -19,7 +23,7 @@ public class ShareTest extends BaseTest {
      * - получение URL для копирования без query-параметров (split("\\?")[0])
      * - получение URL текущей страницы без query-параметров (split("\\?")[0])
      * - проверка, что ссылки совпадают
-     **/
+     */
     @Test
     public void copiedLinkEqualsOpen() {
         MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
@@ -30,8 +34,8 @@ public class ShareTest extends BaseTest {
         String linkToShare = videoPage.getLinkToShare().split("\\?")[0];
         String currentLink = videoPage.getCurrentUrl().split("\\?")[0];
         Assertions.assertEquals(currentLink, linkToShare, String.format(
-                        "Базовый URL в поле 'Поделиться' не совпадает с URL открытой страницы!" +
-                        "\nТекущая ссылка: %s\nСсылка для копирования: %s",
-                        currentLink, linkToShare));
+                "Базовый URL в поле 'Поделиться' не совпадает с URL открытой страницы!" + "\nТекущая ссылка: " +
+                        "%s\nСсылка для копирования: %s",
+                currentLink, linkToShare));
     }
 }
