@@ -3,26 +3,29 @@ package pages;
 import pages.elements.Button;
 import pages.elements.PlaylistCard;
 
-/** Страница с плейлистами пользователя **/
+/**
+ * Страница с плейлистами пользователя
+ */
 public class PlaylistsPage extends BasePage {
 
-    /* Конструктор класса */
+    /**
+     * Конструктор класса
+     */
     public PlaylistsPage() {
         super(PlaylistsPage.class, "playlists");
     }
 
-    /**/
-
-
-    /* Удаление плейлиста */
+    /**
+     * Удаление плейлиста
+     */
     public void deletePlaylist(String playlistName) {
         PlaylistCard playlist = new PlaylistCard(playlistName);
-        playlist.openMenu()
-                .selectAction("Удалить из сохраненных")
-                .confirmDeletion();
+        playlist.openMenu().selectAction("Удалить из сохраненных").confirmDeletion();
     }
 
-    /* Видимость плейлиста */
+    /**
+     * Видимость плейлиста
+     */
     public boolean isPlaylistVisible(String playlistName) {
         return new PlaylistCard(playlistName).isDisplayed();
     }

@@ -3,6 +3,9 @@ package pages;
 import pages.elements.Button;
 import pages.elements.WatchLaterCard;
 
+/**
+ * Страница "Смотреть позже"
+ */
 public class WatchLaterPage extends BasePage {
     public WatchLaterPage() {
         super(WatchLaterPage.class, "playlist?list=WL");

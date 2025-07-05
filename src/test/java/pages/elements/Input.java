@@ -10,43 +10,60 @@ public class Input extends BaseElement {
     private static final String LABEL_XPATH = "//input[@label='%s']";
     private static final String WRAPPER_XPATH = "//div[contains(@class, '%s')]/input";
 
+    /**
+     * Конструктор класса
+     */
     private Input(String xpath, String param) {
         super(xpath, param);
     }
 
-    /* Заполнение поля */
+    /**
+     * Заполнение поля
+     */
     public void fill(String value) {
         baseElement.setValue(value);
     }
 
-    /* Формирование Xpath по ID */
+    /**
+     * Получение значения в поле
+     */
+    public String getValue() {
+        return baseElement.getValue();
+    }
+
+    /**
+     * Формирование Xpath по ID
+     */
     public static Input byId(String id) {
         return new Input(ID_XPATH, id);
     }
 
-    /* Формирование Xpath по name*/
+    /**
+     * Формирование Xpath по name
+     */
     public static Input byName(String name) {
         return new Input(NAME_XPATH, name);
     }
 
-    /* Формирование Xpath по class*/
+    /**
+     * Формирование Xpath по class
+     */
     public static Input byClass(String class_name) {
         return new Input(CLASS_XPATH, class_name);
     }
 
-    /* Формирование Xpath по label*/
+    /**
+     * Формирование Xpath по label
+     */
     public static Input byLabel(String label) {
         return new Input(LABEL_XPATH, label);
     }
 
-
-    /* Формирование Xpath по wrapper*/
+    /**
+     * Формирование Xpath по wrapper
+     */
     public static Input byWrapper(String wrapper) {
         return new Input(WRAPPER_XPATH, wrapper);
     }
 
-    /* Получение значения в поле */
-    public String getValue() {
-        return baseElement.getValue();
-    }
 }

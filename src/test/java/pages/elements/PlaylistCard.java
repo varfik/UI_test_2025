@@ -2,6 +2,9 @@ package pages.elements;
 
 import org.openqa.selenium.By;
 
+/**
+ * Класса элемента типа PlaylistCard
+ */
 public class PlaylistCard {
     private final String playlistName;
     private final By cardLocator;

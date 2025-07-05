@@ -11,63 +11,87 @@ import java.util.stream.Collectors;
  * Главная страница Rutube.ru после авторизации
  **/
 public class MainAfterLoginPage extends BasePage {
-
-    /* Иконка канала пользователя */
+    /**
+     * Иконка канала пользователя
+     */
     private final Image channelIconImage = Image.byClass("freyja_char-header-user-menu__avatar");
 
-    /* Поисковая строка */
+    /**
+     * Поисковая строка
+     */
     private final Input searchInput = Input.byClass("wdp-search-line-module__input");
 
-    /* Кнопка поиска */
+    /**
+     * Кнопка поиска
+     */
     private final Button searchButton = Button.byAriaLabel("Отправить форму поиска");
 
-    /* Кнопка перехода в плейлисты */
+    /**
+     * Кнопка перехода в плейлисты
+     */
     private final Button playlistsButton = Button.byXPath(
-            "//a[contains(@class,'wdp-link-module__link') and contains(@href,'/my/playlists/')]"
-    );
-  
-    /* Кнопка "Профиль" */
+            "//a[contains(@class,'wdp-link-module__link') and contains(@href,'/my/playlists/')]");
+
+    /**
+     * Кнопка "Профиль"
+     */
     private final Button profileButton = Button.byTextInsideA("Профиль");
 
 
-    /* Конструктор класса */
+    /**
+     * Конструктор класса
+     */
     public MainAfterLoginPage() {
         super(MainAfterLoginPage.class, "mainAfterLogin");
     }
 
-    /* Иконка канала отображается */
+    /**
+     * Иконка канала отображается
+     */
     public boolean isChannelIconVisible() {
         return channelIconImage.isDisplayed();
     }
 
-    /* Ввод запроса в строку поиска */
+    /**
+     * Ввод запроса в строку поиска
+     */
     public void fillSearchInput(String searchQuery) {
         searchInput.fill(searchQuery);
     }
 
-    /* Нажатие на кнопку поиска */
+    /**
+     * Нажатие на кнопку поиска
+     */
     public void clickSearchButton() {
         searchButton.press();
     }
 
-    /* Переход на страницу плейлистов */
+    /**
+     * Переход на страницу плейлистов
+     */
     public PlaylistsPage goToPlaylists() {
         playlistsButton.press();
         return new PlaylistsPage();
     }
 
-    /* Нажатие на иконку пользователя */
+    /**
+     * Нажатие на иконку пользователя
+     */
     public void clickChannelIconImage() {
         channelIconImage.press();
     }
 
-    /* Нажатие на раздел "Профиль" */
+    /**
+     * Нажатие на раздел "Профиль"
+     */
     public ProfilePage clickProfileButton() {
         profileButton.press();
         return new ProfilePage();
     }
 
-    /* Закрытие всплывающих окон */
+    /**
+     * Закрытие всплывающих окон
+     */
     public void closePopups() {
 
         List<Button> closeButtons = List.of(Button.byAriaLabel("Закрыть"), Button.byText("Ок"),
@@ -83,18 +107,16 @@ public class MainAfterLoginPage extends BasePage {
         }
     }
 
-    /* Открытие раздела Истории просмотров */
+    /**
+     * Открытие раздела Истории просмотров
+     */
     public HistoryVideoPage openHistoryVideo() {
         Button.byXPath(
-                "//section[@aria-label='Моё']" +
-                        "//ul[@class='menu-my-group-links-module__linksList']" +
-                        "//a[contains(@href, '/my/history/')]" +
-                        "/div[@class='menu-link-module__link']" +
-                        "/div[@class='menu-link-module__linkContent' and text()='История просмотра']" +
-                        "/ancestor::a"
-        ).press();
-
+                      "//section[@aria-label='Моё']" + "//ul[@class='menu-my-group-links-module__linksList']" + "//a" +
+                              "[contains(@href, '/my/history/')]" + "/div[@class='menu-link-module__link']" + "/div" +
+                              "[@class='menu-link-module__linkContent' and text()='История просмотра']" + "/ancestor" +
+                              "::a")
+              .press();
         return new HistoryVideoPage();
     }
-
 }
