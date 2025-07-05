@@ -8,3 +8,4 @@
 /dataSources.local.xml
 # Build directories
 target/
+build/
