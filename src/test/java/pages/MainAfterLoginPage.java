@@ -54,6 +54,7 @@ public class MainAfterLoginPage extends BasePage {
     public PlaylistsPage goToPlaylists() {
         playlistsButton.press();
         return new PlaylistsPage();
+    }
 
     /* Нажатие на иконку пользователя */
     public void clickChannelIconImage() {
