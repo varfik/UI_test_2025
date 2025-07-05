@@ -15,4 +15,8 @@ public class SearchService {
         mainAfterLoginPage.clickSearchButton();
         return new ResultsOfSearchPage(searchQuery, type);
     }
+
+    public static ResultsOfSearchPage searchExact(String query, SearchType type) {
+        return new ResultsOfSearchPage(query, type);
+    }
 }

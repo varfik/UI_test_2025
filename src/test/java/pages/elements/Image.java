@@ -19,4 +19,9 @@ public class Image extends BaseElement {
     public static Image byText(String text) {
         return new Image(TEXT_XPATH, text);
     }
+
+    /* Нажатие на изображение */
+    public void press() {
+        baseElement.click();
+    }
 }
