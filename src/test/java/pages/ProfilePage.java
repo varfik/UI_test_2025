@@ -52,9 +52,9 @@ public class ProfilePage extends BasePage {
         femaleRadioButton.select();
     }
 
-    /* В переключателе пола выбрана кнопка "Женский" */
-    public boolean isFemaleRadioButtonSelected() {
-        return Objects.equals(femaleRadioButton.getBackgroundColor(), "#00a1e7");
+    /* Получение цвета кнопки "Женский" в переключателе пола */
+    public String getFemaleRadioButtonColor() {
+        return femaleRadioButton.getBackgroundColor();
     }
 
     /* Получение значения в сохраненном поле "Дата рождения" */
