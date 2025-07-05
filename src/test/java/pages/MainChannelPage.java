@@ -2,8 +2,6 @@ package pages;
 
 import pages.elements.Button;
 
-import javax.swing.*;
-
 /** Главная страница канала **/
 public class MainChannelPage extends BasePage {
 
@@ -44,9 +42,9 @@ public class MainChannelPage extends BasePage {
     }
 
     /* Переход на страницу плейлистов канала */
-    public ChannelPlaylistsPage goToPlaylists() {
+    public PlaylistsPage goToPlaylists() {
         playlistsButton.press();
-        return new ChannelPlaylistsPage();
+        return new PlaylistsPage();
     }
 
     /* Переход на страницу плейлистов пользователя */

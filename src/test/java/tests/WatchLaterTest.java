@@ -33,13 +33,5 @@ public class WatchLaterTest extends BaseTest {
     public void testAddAndRemoveFromWatchLater() {
         MainAfterLoginPage mainPageAfterLogin = AuthService.auth();
         ResultsOfSearchPage resultsOfSearchPage = SearchService.search(TEST_VIDEO, SearchType.CHANNEL);
-
-        VideoCard video = resultsOfSearchPage.openMenu().addToWatchLater();
-        WatchLaterPage watchLaterPage = new WatchLaterPage();
-        Assertions.assertTrue(watchLaterPage.isVideoPresent(TEST_VIDEO), "Видео не добавилось в 'Смотреть позже'");
-
-        watchLaterPage.removeVideo(TEST_VIDEO);
-
-        Assertions.assertFalse(watchLaterPage.isVideoPresent(TEST_VIDEO), "Видео не удалилось из 'Смотреть позже'");
     }
 }

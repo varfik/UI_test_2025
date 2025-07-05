@@ -2,11 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pages.MainAfterLoginPage;
-import pages.MainChannelPage;
-import pages.ResultsOfSearchPage;
-import pages.ChannelPlaylistsPage;
-import pages.PlaylistsPage;
+import pages.*;
 import services.AuthService;
 import services.SearchService;
 import services.SearchType;
@@ -36,13 +32,16 @@ public class PlaylistTest extends BaseTest {
         MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
         ResultsOfSearchPage resultsOfSearchPage = SearchService.search("Практика 2025 ЛЭТИ 3383", SearchType.VIDEO);
         MainChannelPage channelPage = resultsOfSearchPage.clickChannelNameVideoCardModule();
-        ChannelPlaylistsPage playlistsPage = channelPage.goToPlaylists();
-        playlistsPage.savePlaylist("Тестовый плейлист");
+
+        PlaylistsPage playlistsPage = channelPage.goToPlaylists();
+        playlistsPage.clickMenuCardModule();
+        playlistsPage.savePlaylist();
         PlaylistsPage myPlaylists = channelPage.goToMyPlaylists();
 
-        Assertions.assertFalse(myPlaylists.isPlaylistVisible("Тестовый плейлист"), "Плейлист не отображается!");
-        myPlaylists.deletePlaylist("Тестовый плейлист");
+        Assertions.assertFalse(myPlaylists.isPlaylistVisible(), "Плейлист не отображается!");
+        playlistsPage.clickMenuCardModule();
+        myPlaylists.deletePlaylist();
 
-        Assertions.assertTrue(myPlaylists.isPlaylistVisible("Тестовый плейлист"), "Плейлист не удален!");
+        Assertions.assertTrue(myPlaylists.isPlaylistVisible(), "Плейлист не удален!");
     }
 }

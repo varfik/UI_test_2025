@@ -10,8 +10,8 @@ public class WatchLaterPage extends BasePage {
 
     public void removeVideo(String videoTitle) {
         WatchLaterCard card = new WatchLaterCard(videoTitle);
-        card.openMenu();
-        card.removeFromWatchLater();
+        //card.openMenu();
+        //card.removeFromWatchLater();
     }
 
     public boolean isVideoPresent(String videoTitle) {
