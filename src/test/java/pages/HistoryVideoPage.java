@@ -7,12 +7,6 @@ import pages.elements.Button;
  */
 public class HistoryVideoPage extends BasePage {
     /**
-     * Кнопка очистки истории
-     */
-    private final Button cleanHistoryButton = Button.byXPath(
-            "//button[contains(@class, 'wdp-my-delete-history-button-module__button') and .//span[text()='Очистить']]");
-
-    /**
      * XPath видео
      */
     private static final String VIDEO_CARD_XPATH =
@@ -24,13 +18,37 @@ public class HistoryVideoPage extends BasePage {
     private static final String MENU_BUTTON_XPATH = "//button[contains(@class, ' freyja_char-more-menu__more-menu')]";
 
     /**
+     * Кнопка очистки истории
+     */
+    private final Button cleanHistoryButton = Button.byXPath(
+            "//button[contains(@class, 'wdp-my-delete-history-button-module__button') and .//span[text()='Очистить']]");
+
+    /**
+     * Кнопка удаления из истории
+     */
+    private final Button removeFromHistoryButton = Button.byXPath(
+                "//li[contains(@class, 'freyja_char-menu-list__menu-list-item')]" + "//svg[contains(@class, " + "'svg"
+                        + "-icon--IconTrash')]");
+
+    /**
+     * Кнопка подтверждения удаления из истории
+     */
+    private final Button popupConfirmButton = Button.byXPath(
+                "//div[contains(@class, 'wdp-popup-module_popup')]//button[contains(text(), 'Очистить')]");
+
+    /**
+     * Кнопка видео в истории просмотра
+     */
+    private final Button videoInHisturyButton = Button.byXPath(
+                "//div[contains(@class, 'wdp-my-history-module_grid')]" + "//div[@data-pos-num]");
+    
+    /**
      * Конструктор класса
      */
     public HistoryVideoPage() {
         super(HistoryVideoPage.class, "HistoryVideo");
     }
-
-
+    
     /**
      * Открытие меню для видео
      * - Получение XPath видео с указанным названием
@@ -44,17 +62,9 @@ public class HistoryVideoPage extends BasePage {
     }
 
     /**
-     * Удаление видео из истории:
-     * - Поиск кнопки "Удалить из истории" (иконка корзины) в меню (было открыто в методе
-     * openVideoMenu) указанного видео
-     * - Нажатие на кнопку "Удалить из истории"
+     * Удаление видео из истории (нажатие на кнопку "Удалить из истории")
      */
-    public void removeVideoFromHistory(String videoTitle) {
-        Button removeFromHistoryButton = Button.byXPath(
-                "//li[contains(@class, 'freyja_char-menu-list__menu-list-item')]" + "//svg[contains(@class, " + "'svg"
-                        + "-icon--IconTrash')]");
-        removeFromHistoryButton.press();
-    }
+    public void removeVideoFromHistory(String videoTitle) { removeFromHistoryButton.press(); }
 
     /**
      * Проверка наличия видео в Истории просмотров:
@@ -77,8 +87,6 @@ public class HistoryVideoPage extends BasePage {
      */
     public void cleanHistory() {
         cleanHistoryButton.press();
-        Button popupConfirmButton = Button.byXPath(
-                "//div[contains(@class, 'wdp-popup-module_popup')]//button[contains(text(), 'Очистить')]");
         popupConfirmButton.press();
     }
 
@@ -91,8 +99,7 @@ public class HistoryVideoPage extends BasePage {
      */
     public boolean isHistoryNotEmpty() {
         try {
-            return Button.byXPath("//div[contains(@class, 'wdp-my-history-module_grid')]" + "//div[@data-pos-num]")
-                         .isDisplayed();
+            return videoInHisturyButton.isDisplayed();
         } catch (Exception e) {
             return false;
         }
