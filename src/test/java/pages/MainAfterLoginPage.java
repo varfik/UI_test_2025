@@ -27,6 +27,12 @@ public class MainAfterLoginPage extends BasePage {
     private final Button searchButton = Button.byAriaLabel("Отправить форму поиска");
 
     /**
+     * Кнопка открывания главного меню
+     */
+    private final Button openMenuButton = Button.byXPath(
+            "//button[contains(@class, 'header-module__headerLeftBurgerMenu')]");
+
+    /**
      * Кнопка перехода в плейлисты
      */
     private final Button playlistsButton = Button.byXPath(
@@ -35,7 +41,7 @@ public class MainAfterLoginPage extends BasePage {
     /**
      * Кнопка перехода в "Смотреть позже"
      */
-    private final Button watchLaterButton = Button.byText("Смотреть позже");
+    private final Button watchLaterButton = Button.byXPath("//a[@href='/my/future/']");
 
     /**
      * Кнопка "Профиль"
@@ -77,14 +83,6 @@ public class MainAfterLoginPage extends BasePage {
     public PlaylistsPage goToPlaylists() {
         playlistsButton.press();
         return new PlaylistsPage();
-    }
-
-    /**
-     * Переход на страницу "Смотреть позже"
-     */
-    public WatchLaterPage openWatchLater() {
-        watchLaterButton.press();
-        return new WatchLaterPage();
     }
 
     /**
@@ -131,5 +129,25 @@ public class MainAfterLoginPage extends BasePage {
                               "::a")
               .press();
         return new HistoryVideoPage();
+    }
+
+    /**
+     * Открытие раздела плейлистов
+     */
+    public PlaylistsPage openPlaylists() {
+        closePopups();
+        openMenuButton.press();
+        playlistsButton.press();
+        return new PlaylistsPage();
+    }
+
+    /**
+     * Открытие раздела "Смотреть позже"
+     */
+    public WatchLaterPage openWatchLater() {
+        closePopups();
+        openMenuButton.press();
+        watchLaterButton.press();
+        return new WatchLaterPage();
     }
 }

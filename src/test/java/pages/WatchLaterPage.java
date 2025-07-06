@@ -8,31 +8,22 @@ import pages.elements.VideoCardModule;
  */
 public class WatchLaterPage extends BasePage {
 
-    private VideoCardModule videoCard;
-
     public WatchLaterPage() {
         super(WatchLaterPage.class, "playlist?list=WL");
     }
 
     /**
-     * Открытие меню видео
+     * Нажатие на название видео в карточке видео
      */
-    public void openVideoMenu() { videoCard.openMenu(); }
-
-    /**
-     * Удаление видео из "Смотреть позже"
-     */
-    public void deleteFromWatchLater() {
-        videoCard.deleteFromWatchLater();
+    public VideoPage clickVideoNameVideoCardModule(String videoTitle) {
+        VideoCardModule.byVideoTitle(videoTitle).press();
+        return new VideoPage();
     }
 
     /**
      * Проверка отображения видео
      */
     public boolean isVideoVisible(String videoTitle) {
-        String videoXpath = String.format(
-                "//ytd-playlist-video-renderer[.//*[contains(text(), '%s')]]",
-                videoTitle);
-        return Button.byXPath(videoXpath).isDisplayed();
+        return Button.byTextInsideA(videoTitle).isDisplayed();
     }
 }

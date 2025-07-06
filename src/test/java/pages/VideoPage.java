@@ -1,8 +1,6 @@
 package pages;
 
 import pages.elements.Button;
-
-import pages.elements.Button;
 import pages.elements.Input;
 import pages.elements.CommentModule;
 
@@ -11,7 +9,7 @@ import pages.elements.CommentModule;
  */
 public class VideoPage extends BasePage {
     /**
-     * Кнопка "Поделиться
+     * Кнопка "Поделиться"
      */
     private final Button shareButton = Button.byText("Поделиться");
 
@@ -31,10 +29,62 @@ public class VideoPage extends BasePage {
     private final Button sendCommentButton = Button.byAriaLabel("Отправить");
 
     /**
+     * Кнопка "Смотреть позже"
+     */
+    private final Button watchLaterButton = Button.byText("Смотреть позже");
+
+    /**
+     * Кнопка лайка
+     */
+    private final Button likeButton = Button.byXPath(
+            "//button[contains(@class, 'wdp-video-like-dislike-reactions-module__reaction') " + "and " +
+                    "@title='Нравится']");
+
+    /**
+     * SVG элемент для проверки состояния лайка
+     */
+    private final Button likeSvg = Button.byXPath(
+            "//button[contains(@class, 'wdp-video-like-dislike-reactions-module__reaction')]" + "//*[local-name()" +
+                    "='svg' and @fill]");
+
+    /**
+     * Счетчик лайков
+     */
+    private final Button likesCounter = Button.byXPath(
+            "//span[contains(@class, 'wdp-video-like-dislike-reactions-module__counter')]");
+
+    /**
+     * Кнопка главного меню
+     */
+    private final Button menuButton = Button.byXPath("//*[@id='root']/div/div[1]/div[2]/header/section[1]/button");
+
+    /**
+     * Кнопка перехода в "Смотреть позже"
+     */
+    private final Button goToWatchLaterButton = Button.byXPath("//a[@href='/my/future/']");
+
+    /**
      * Конструктор класса
      */
     public VideoPage() {
         super(VideoPage.class, "video");
+    }
+
+    /**
+     * Нажатие на кнопку главного меню
+     */
+    public VideoPage openMenu(){
+        menuButton.press();
+        return new VideoPage();
+    }
+
+    /**
+     * Открытие раздела "Смотреть позже"
+     */
+    public WatchLaterPage openWatchLater() {
+        menuButton.press();
+        goToWatchLaterButton.press();
+        return new WatchLaterPage();
     }
 
     /**
@@ -94,25 +144,9 @@ public class VideoPage extends BasePage {
     }
 
     /**
-     * Кнопка лайка
+     * Нажатие кнопки "Смотреть позже"
      */
-    private final Button likeButton = Button.byXPath(
-            "//button[contains(@class, 'wdp-video-like-dislike-reactions-module__reaction') " + "and " +
-                    "@title='Нравится']");
-
-    /**
-     * SVG элемент для проверки состояния лайка
-     */
-    private final Button likeSvg = Button.byXPath(
-            "//button[contains(@class, 'wdp-video-like-dislike-reactions-module__reaction')]" + "//*[local-name()" +
-                    "='svg' and @fill]");
-
-    /**
-     * Счетчик лайков
-     */
-    private final Button likesCounter = Button.byXPath(
-            "//span[contains(@class, 'wdp-video-like-dislike-reactions-module__counter')]");
-
+    public void changeWatchLaterStatus(){ watchLaterButton.press(); }
 
     /**
      * Проверка, выставлен ли лайк - возвращает булево значение:
