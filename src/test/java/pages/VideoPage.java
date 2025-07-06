@@ -19,9 +19,15 @@ public class VideoPage extends BasePage {
     private final Input shareInput = Input.byWrapper("inputWrapper");
 
     /**
-     * Поле для комментария (Input)
+     * Кнопка написания комментария
      */
-    private final Input commentInput = Input.byClass("wdp-comment-input-module__textarea");
+    private final Button commentButton = Button.byXPath("//*[@id='root']/div/div[3]/div/" +
+            "main/div[1]/div[1]/section/div/div[1]/section[2]/div/section/div[3]/form/div/textarea");
+
+    /**
+     * Поле для комментария
+     */
+    private final Input commentInput = Input.byWrapper("wdp-comment-input-module__wrapper");
 
     /**
      * Кнопка для отправки комментария
@@ -99,6 +105,14 @@ public class VideoPage extends BasePage {
      */
     public String getLinkToShare() {
         return shareInput.getValue();
+    }
+
+    /**
+     * Нажатие на поле написания комментария
+     */
+    public VideoPage clickCommentField(){
+        commentButton.press();
+        return new VideoPage();
     }
 
     /**
@@ -188,7 +202,6 @@ public class VideoPage extends BasePage {
         }
         return this;
     }
-
 
     /**
      * Метод получения количества лайков:
