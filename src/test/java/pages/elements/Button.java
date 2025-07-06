@@ -4,11 +4,10 @@ package pages.elements;
  * Класс элемента типа Button
  */
 public class Button extends BaseElement {
+
     private static final String ARIA_LABEL_XPATH = "//button[@aria-label='%s']";
     private static final String TEXT_XPATH = "//button[contains(., '%s')]";
-
     private static final String TEXT_INSIDE_A_XPATH = "//a[contains(., '%s')]";
-
     private static final String ID_XPATH = "//button[@id='%s']";
 
     private Button(String xpath, String param) {
@@ -51,14 +50,14 @@ public class Button extends BaseElement {
     }
 
     /**
-     * Формирование Xpath по содержащемуся тексту  в <button>
+     * Формирование Xpath по содержащемуся тексту в <button>
      */
     public static Button byText(String text) {
         return new Button(TEXT_XPATH, text);
     }
 
     /**
-     * Формирование Xpath по содежащемуся тексту в <a>
+     * Формирование Xpath по содержащемуся тексту в <a>
      */
     public static Button byTextInsideA(String text) {
         return new Button(TEXT_INSIDE_A_XPATH, text);

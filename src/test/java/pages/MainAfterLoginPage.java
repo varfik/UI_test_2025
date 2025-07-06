@@ -33,6 +33,11 @@ public class MainAfterLoginPage extends BasePage {
             "//a[contains(@class,'wdp-link-module__link') and contains(@href,'/my/playlists/')]");
 
     /**
+     * Кнопка перехода в "Смотреть позже"
+     */
+    private final Button watchLaterButton = Button.byText("Смотреть позже");
+
+    /**
      * Кнопка "Профиль"
      */
     private final Button profileButton = Button.byTextInsideA("Профиль");
@@ -72,6 +77,14 @@ public class MainAfterLoginPage extends BasePage {
     public PlaylistsPage goToPlaylists() {
         playlistsButton.press();
         return new PlaylistsPage();
+    }
+
+    /**
+     * Переход на страницу "Смотреть позже"
+     */
+    public WatchLaterPage openWatchLater() {
+        watchLaterButton.press();
+        return new WatchLaterPage();
     }
 
     /**
