@@ -1,10 +1,15 @@
 package pages;
 
+import com.codeborne.selenide.Selenide;
 import pages.elements.Button;
 
 import pages.elements.Button;
 import pages.elements.Input;
 import pages.elements.CommentModule;
+
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.WebDriverRunner.url;
 
 /**
  * Страница видео
@@ -188,5 +193,54 @@ public class VideoPage extends BasePage {
         } catch (Exception e) {
             return false;
         }
+    }
+    
+    public static VideoPage openByUrl(String url) {
+        if (url == null || !url.contains("/video/")) {
+            throw new IllegalArgumentException("Invalid video URL format. Must contain '/video/'");
+        }
+
+        try {
+            Selenide.open(url);
+
+            if (!url().contains("/video/")) {
+                throw new IllegalStateException("Failed to open video page. Current URL: " + url());
+            }
+
+            return new VideoPage();
+
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to open video URL: " + url, e);
+        }
+    }
+
+    public VideoPage waitForContent() {
+        $("div.video-player").shouldBe(visible);
+        return this;
+    }
+
+    public boolean isPlayerVisible() {
+        return $("div.video-player").isDisplayed();
+    }
+
+    public String getDescription() {
+        return $("div.video-description").getText();
+    }
+
+
+    public boolean isCoverImageVisible() {
+        return $("img.video-cover").isDisplayed();
+    }
+
+    public String getChannelName() {
+        return $("a.channel-link").getText();
+    }
+
+    public String getTitle() {
+        return $("h1.video-title").getText();
+    }
+    public boolean isPublishedStateVisible() {
+        return $("div.published-status-indicator").isDisplayed();
+        // Или другой локатор, указывающий на статус публикации
     }
 }

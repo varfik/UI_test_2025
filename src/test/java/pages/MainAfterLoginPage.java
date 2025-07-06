@@ -4,8 +4,13 @@ import pages.elements.Button;
 import pages.elements.Image;
 import pages.elements.Input;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$x;
 
 /**
  * Главная страница Rutube.ru после авторизации
@@ -42,7 +47,14 @@ public class MainAfterLoginPage extends BasePage {
      */
     private final Button profileButton = Button.byTextInsideA("Профиль");
 
+    private final Button addButton = Button.byXPath(
+            "//section[contains(@class, 'wdp-header-right-module__uploader')]" +
+                    "//button[@aria-label='Добавить' and contains(@class, 'freyja_char-icon-round-button__button_kkH9C')]"
+    );
 
+    private final Button uploadVideoButton = Button.byXPath(
+            "//ul[contains(@class, 'freyja_char-header-video-menu__list')]//*[contains(text(), 'Загрузить видео')]"
+    );
     /**
      * Конструктор класса
      */
@@ -131,5 +143,26 @@ public class MainAfterLoginPage extends BasePage {
                               "::a")
               .press();
         return new HistoryVideoPage();
+    }
+    
+    public StudioRutubePage openStudioRutubePage() {
+        try {
+            addButton.press();
+
+            // 2. Ожидаем появление меню (используем $x для XPath)
+            $x("//ul[contains(@class, 'freyja_char-header-video-menu__list')]")
+                    .shouldBe(visible, Duration.ofSeconds(30));
+
+            // 3. Кликаем по кнопке "Загрузить видео" в меню
+            uploadVideoButton
+                    .getBaseElement()
+                    .shouldBe(visible, Duration.ofSeconds(10))
+                    .shouldBe(enabled)
+                    .click();
+
+            return new StudioRutubePage();
+        } catch (Exception e) {
+            throw new RuntimeException("Не удалось открыть студию Rutube: " + e.getMessage(), e);
+        }
     }
 }

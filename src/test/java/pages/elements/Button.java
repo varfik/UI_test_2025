@@ -1,5 +1,7 @@
 package pages.elements;
 
+import com.codeborne.selenide.SelenideElement;
+
 /**
  * Класс элемента типа Button
  */
@@ -69,6 +71,19 @@ public class Button extends BaseElement {
     public static Button byXPath(String xpath) {
         return new Button(xpath, "");
     }
+    
+    /* Формирование Xpath согласно полученной Xpath строке */
+    // В класс Button добавить:
+    public SelenideElement getBaseElement() {
+        return baseElement;
+    }
+
+    // В класс Button добавить:
+    public boolean isSelected() {
+        return getBaseElement().isSelected();
+    }
+
+
 
 }
 

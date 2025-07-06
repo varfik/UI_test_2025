@@ -1,5 +1,7 @@
 package pages.elements;
 
+import com.codeborne.selenide.SelenideElement;
+
 /**
  * Класс элемента типа Input
  **/
@@ -66,4 +68,18 @@ public class Input extends BaseElement {
         return new Input(WRAPPER_XPATH, wrapper);
     }
 
+    public SelenideElement getBaseElement() {
+        return baseElement;
+    }
+
+    /* Очищение поля */
+    public void clearField() {
+        baseElement.clear();
+    }
+
+
+    /* Формирование Xpath согласно полученной Xpath строке */
+    public static Input byXPath(String xpath) {
+        return new Input(xpath, "");
+    }
 }
