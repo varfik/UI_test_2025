@@ -3,49 +3,65 @@ package tests;
 import org.junit.jupiter.api.*;
 import pages.HistoryVideoPage;
 import pages.MainAfterLoginPage;
+import pages.ResultsOfSearchPage;
+import pages.VideoPage;
 import services.AuthService;
-
+import services.SearchService;
+import services.SearchType;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Тест удаления видео из истории и очистки истории
- * @author Zemerova
+ * Тест "Удаление видео из Истории просмотров и ее Очистка"
  */
 public class DeleteFromHistoryTest extends BaseTest {
+    private final String testVideoTitle = "Зачем нужна математика? / Практика 2025 ЛЭТИ 3383";
+
     /**
-     * Тест: Удаление видео из истории просмотра
-     * - Авторизация на сайте
-     * - Переход на Историю просмотра
-     * - Проверка, что указанное видео есть в Истории просмотра
-     * - Открытие меню для указанного видео и удаление его с помощью кнопки "Удалить из истории"
-     * - Проверка, что видео было удалено из Истории просмотра
+     * Тест удаления конкретного видео из истории просмотров.
+     * Шаги:
+     * 1. Авторизация на сайте
+     * 2. Переход на страницу истории просмотров
+     * 3. Если тестового видео нет в истории:
+     *    - Выполняется поиск видео
+     *    - Открывается и просматривается видео
+     *    - Обновляется страница
+     * 4. Проверка наличия видео в истории перед удалением
+     * 5. Удаление видео из истории
+     * 6. Проверка отсутствия видео в истории после удаления
      */
     @Test
     public void testRemoveSingleVideoFromHistory() {
         MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
         HistoryVideoPage historyPage = mainAfterLoginPage.openHistoryVideo();
-        String testVideoTitle = "Зачем нужна математика? / Практика 2025 ЛЭТИ 3383";
-        assertTrue(historyPage.isVideoPresent(testVideoTitle), "Видео должно присутствовать в истории перед удалением");
-        historyPage.openVideoMenu(testVideoTitle);
+
+        if (!historyPage.isVideoPresent(testVideoTitle)) {
+            ResultsOfSearchPage resultsOfSearchPage = SearchService.search(testVideoTitle, SearchType.VIDEO);
+            VideoPage videoPage = resultsOfSearchPage.clickVideoNameVideoCardModule();
+            videoPage.watchVideo();
+            videoPage.refresh();
+            videoPage.openHistoryVideo();
+            historyPage.refresh();
+        }
+
+        assertTrue(historyPage.isVideoPresent(testVideoTitle),
+                "Видео должно присутствовать в истории перед удалением");
         historyPage.removeVideoFromHistory(testVideoTitle);
         assertFalse(historyPage.isVideoPresent(testVideoTitle), "Видео должно быть удалено из истории");
     }
 
-
     /**
-     * Тест: Удаление видео из истории просмотра
-     * - Авторизация на сайте
-     * - Переход на Историю просмотра
-     * - Проверка, что История не пуста
-     * - Очистка Истории просмотра
-     * - Проверка, что История просмотров пуста
+     * Тест очистки всей истории просмотров.
+     * Шаги:
+     * 1. Авторизация на сайте
+     * 2. Переход на страницу истории просмотров
+     * 3. Очистка всей истории просмотров
+     * 4. Проверка, что история просмотров пуста
      */
     @Test
     public void testCleanEntireHistory() {
         MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
         HistoryVideoPage historyPage = mainAfterLoginPage.openHistoryVideo();
-        assertTrue(historyPage.isHistoryNotEmpty(), "История должна содержать хотя бы одно видео перед очисткой");
         historyPage.cleanHistory();
-        assertFalse(historyPage.isHistoryNotEmpty(), "История должна быть пустой после очистки");
+        assertTrue(historyPage.isHistoryEmpty(), "История должна быть пустой после очистки");
     }
 }

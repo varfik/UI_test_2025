@@ -1,5 +1,7 @@
 package pages.elements;
 
+import com.codeborne.selenide.SelenideElement;
+
 /**
  * Класс элемента типа Button
  */
@@ -70,6 +72,7 @@ public class Button extends BaseElement {
         return new Button(xpath, "");
     }
 
+    public SelenideElement getBaseElement() { return baseElement;}
 }
 
 

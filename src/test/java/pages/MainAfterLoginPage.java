@@ -3,7 +3,6 @@ package pages;
 import pages.elements.Button;
 import pages.elements.Image;
 import pages.elements.Input;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +41,15 @@ public class MainAfterLoginPage extends BasePage {
      */
     private final Button profileButton = Button.byTextInsideA("Профиль");
 
+    /**
+     * Кнопка открытия бокового меню
+     */
+    private final Button openButton = Button.byXPath("//button[contains(@class, 'header-module__headerLeftBurgerMenu')]");
+
+    /**
+     * Кнопка "История просмотра"
+     */
+    private final Button histButton = Button.byXPath("//a[@href='/my/history/']");
 
     /**
      * Конструктор класса
@@ -121,15 +129,14 @@ public class MainAfterLoginPage extends BasePage {
     }
 
     /**
-     * Открытие раздела Истории просмотров
+     * Открытие страницы истории просмотров:
+     * - Нажатие на кнопку открытия главного меню
+     * - Нажатие на кнопку перехода в историю просмотров
      */
     public HistoryVideoPage openHistoryVideo() {
-        Button.byXPath(
-                      "//section[@aria-label='Моё']" + "//ul[@class='menu-my-group-links-module__linksList']" + "//a" +
-                              "[contains(@href, '/my/history/')]" + "/div[@class='menu-link-module__link']" + "/div" +
-                              "[@class='menu-link-module__linkContent' and text()='История просмотра']" + "/ancestor" +
-                              "::a")
-              .press();
+        closePopups();
+        openButton.press();
+        histButton.press();
         return new HistoryVideoPage();
     }
 }

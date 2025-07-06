@@ -1,10 +1,12 @@
 package pages;
 
-import pages.elements.Button;
-
+import com.codeborne.selenide.SelenideElement;
 import pages.elements.Button;
 import pages.elements.Input;
 import pages.elements.CommentModule;
+import java.time.Duration;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Страница видео
@@ -112,6 +114,28 @@ public class VideoPage extends BasePage {
      */
     private final Button likesCounter = Button.byXPath(
             "//span[contains(@class, 'wdp-video-like-dislike-reactions-module__counter')]");
+            
+    
+    /**
+     * Кнопка "Повторить" для просмотра видео
+     */
+    private final Button repeatButton = Button.byAriaLabel("Повторить (горячая клавиша K английская)");
+
+    /**
+     * Кнопка открытия бокового меню
+     */
+    private final Button openButton = Button.byXPath("//button[contains(@class, 'header-module__headerLeftBurgerMenu')]");
+
+    /**
+     * Кнопка "История просмотра"
+     */
+    private final Button histButton = Button.byXPath("//a[@href='/my/history/']");
+
+    /**
+     * Область видеоплеера, где воспроизводится видео
+     */
+    private final SelenideElement videoPlayer = $("div[class*='video-wrapper-module__videoWrapper']")
+            .shouldBe(visible);
 
 
     /**
@@ -188,5 +212,27 @@ public class VideoPage extends BasePage {
         } catch (Exception e) {
             return false;
         }
+    }
+    
+    /**
+     * Открытие страницы истории просмотров:
+     * - Нажатие на кнопку открытия главного меню
+     * - Нажатие на кнопку перехода в историю просмотров
+     */
+    public void openHistoryVideo() {
+        openButton.press();
+        histButton.press();
+    }
+
+    /**
+     * Воспроизведение видео с выполнением необходимых действий:
+     * - Наведение курсора на область видео (для активации элементов управления)
+     * - Ожидание появления видимой области видео
+     * - Ожидание появления кнопки повтора (индикатор полной загрузки видео)
+     *    с таймаутом (5 минут) для обработки видео
+     */
+    public void watchVideo() {
+        videoPlayer.hover().shouldBe(visible);
+        repeatButton.getBaseElement().shouldBe(visible, Duration.ofMinutes(5));
     }
 }
