@@ -11,6 +11,7 @@ import services.SearchType;
 
 /**
  * Подписка (отписка) на канал
+ * @author Varfolomeeva
  */
 public class SubscribeTest extends BaseTest {
     /**

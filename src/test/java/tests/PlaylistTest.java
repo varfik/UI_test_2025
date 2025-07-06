@@ -2,7 +2,11 @@ package tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pages.*;
+import pages.MainAfterLoginPage;
+import pages.MainChannelPage;
+import pages.ResultsOfSearchPage;
+import pages.ChannelPlaylistsPage;
+import pages.PlaylistsPage;
 import services.AuthService;
 import services.SearchService;
 import services.SearchType;
@@ -42,10 +46,6 @@ public class PlaylistTest extends BaseTest {
     /**
      * Тестирование сохранения и удаления плейлиста:
      * - авторизация
-     * - поиск видео по запросу "Практика 2025 лэти 3383"
-     * - переход на страницу канала
-     * - открытие раздела плейлистов канала
-     * - сохранение плейлиста "Тестовый плейлист"
      * - переход в раздел "Мои плейлисты"
      * - удаление плейлиста
      * - проверка отсутствия плейлиста

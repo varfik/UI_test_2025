@@ -14,8 +14,8 @@ public class LoginTest extends BaseTest {
      */
     @Test
     public void showConfig() {
-        System.out.println("Phone: " + TestConfig.getPhone());
-        System.out.println("Password: " + TestConfig.getPassword());
+        System.out.println("Phone: " + Config.getPhone());
+        System.out.println("Password: " + Config.getPassword());
     }
 
     /**

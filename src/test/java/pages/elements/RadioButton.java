@@ -4,26 +4,29 @@ import org.openqa.selenium.support.Color;
 
 import static com.codeborne.selenide.Selenide.actions;
 
-/** Элемент типа "Переключатель" **/
+/**
+ * Элемент типа "Переключатель"
+ */
 public class RadioButton extends BaseElement {
-
     private static final String LABEL_TEXT_XPATH = "//label[.//div[text()='%s']]/div";
 
+    /**
+     * Конструктор класса
+     */
     private RadioButton(String xpath, String param) {
         super(xpath, param);
     }
 
-    /* Нажатие на сегмент в радиокнопке */
+    /**
+     * Нажатие на сегмент в радиокнопке
+     */
     public void select() {
         baseElement.click();
     }
 
-    /* Формирование Xpath по тексту в label */
-    public static RadioButton byLabelText(String labelText) {
-        return new RadioButton(LABEL_TEXT_XPATH, labelText);
-    }
-
-    /* Получение цвета заднего фона элемента в формате () */
+    /**
+     * Получение цвета заднего фона элемента
+     */
     public String getBackgroundColor() {
         try {
             actions().moveByOffset(0, 0).perform();
@@ -32,6 +35,13 @@ public class RadioButton extends BaseElement {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    /**
+     * Формирование Xpath по тексту в label
+     */
+    public static RadioButton byLabelText(String labelText) {
+        return new RadioButton(LABEL_TEXT_XPATH, labelText);
     }
 
 }

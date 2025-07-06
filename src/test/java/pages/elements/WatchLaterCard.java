@@ -1,6 +1,8 @@
 package pages.elements;
 
-/** Карточка видео в плейлисте "Смотреть позже" */
+/**
+ * Карточка видео в плейлисте "Смотреть позже"
+ */
 public class WatchLaterCard {
     private final String videoTitle;
 
