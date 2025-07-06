@@ -30,7 +30,7 @@ public class PlaylistTest extends BaseTest {
     @Test
     public void saveAndDeletePlaylist() {
         MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
-        ResultsOfSearchPage resultsOfSearchPage = SearchService.search("Практика 2025 ЛЭТИ 3383", SearchType.VIDEO);
+        ResultsOfSearchPage resultsOfSearchPage = SearchService.search(CHANNEL_NAME, SearchType.VIDEO);
         MainChannelPage channelPage = resultsOfSearchPage.clickChannelNameVideoCardModule();
 
         PlaylistsPage playlistsPage = channelPage.goToPlaylists();
