@@ -24,11 +24,9 @@ public class PlaylistTest extends BaseTest {
      * - сохранение плейлиста "Тестовый плейлист"
      * - переход в раздел "Мои плейлисты"
      * - проверка отображения плейлиста
-     * - удаление плейлиста
-     * - проверка отсутствия плейлиста
      */
     @Test
-    public void saveAndDeletePlaylist() {
+    public void savePlaylist() {
         MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
         ResultsOfSearchPage resultsOfSearchPage = SearchService.search(CHANNEL_NAME, SearchType.VIDEO);
         MainChannelPage channelPage = resultsOfSearchPage.clickChannelNameVideoCardModule();
@@ -39,9 +37,26 @@ public class PlaylistTest extends BaseTest {
         PlaylistsPage myPlaylists = channelPage.goToMyPlaylists();
 
         Assertions.assertFalse(myPlaylists.isPlaylistVisible(), "Плейлист не отображается!");
-        playlistsPage.clickMenuCardModule();
-        myPlaylists.deletePlaylist();
+    }
 
+    /**
+     * Тестирование сохранения и удаления плейлиста:
+     * - авторизация
+     * - поиск видео по запросу "Практика 2025 лэти 3383"
+     * - переход на страницу канала
+     * - открытие раздела плейлистов канала
+     * - сохранение плейлиста "Тестовый плейлист"
+     * - переход в раздел "Мои плейлисты"
+     * - удаление плейлиста
+     * - проверка отсутствия плейлиста
+     */
+    @Test
+    public void deletePlaylist() {
+        MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
+        PlaylistsPage myPlaylists = mainAfterLoginPage.goToPlaylists();
+
+        myPlaylists.clickMenuCardModule();
+        myPlaylists.deletePlaylist();
         Assertions.assertTrue(myPlaylists.isPlaylistVisible(), "Плейлист не удален!");
     }
 }

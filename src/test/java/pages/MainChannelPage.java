@@ -7,6 +7,7 @@ public class MainChannelPage extends BasePage {
 
     /* Кнопка "Подписаться" */
     private final Button subscribeButton = Button.byText("Подписаться");
+
     /* Кнопка "Вы подписаны" */
     private final Button subscribedButton = Button.byText("Вы подписаны");
 
