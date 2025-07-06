@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import pages.MainAfterLoginPage;
 import pages.MainChannelPage;
 import pages.ResultsOfSearchPage;
-import pages.ChannelPlaylistsPage;
 import pages.PlaylistsPage;
 import services.AuthService;
 import services.SearchService;
