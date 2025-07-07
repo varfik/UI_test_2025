@@ -1,11 +1,13 @@
 package pages;
 
+import com.codeborne.selenide.SelenideElement;
 import pages.elements.Button;
 import pages.elements.Image;
 import pages.elements.Input;
-
+import services.AuthService;
 import java.util.List;
 import java.util.stream.Collectors;
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Главная страница Rutube.ru после авторизации
@@ -27,12 +29,6 @@ public class MainAfterLoginPage extends BasePage {
     private final Button searchButton = Button.byAriaLabel("Отправить форму поиска");
 
     /**
-     * Кнопка открывания главного меню
-     */
-    private final Button openMenuButton = Button.byXPath(
-            "//button[contains(@class, 'header-module__headerLeftBurgerMenu')]");
-
-    /**
      * Кнопка перехода в плейлисты
      */
     private final Button playlistsButton = Button.byXPath(
@@ -41,12 +37,42 @@ public class MainAfterLoginPage extends BasePage {
     /**
      * Кнопка перехода в "Смотреть позже"
      */
-    private final Button watchLaterButton = Button.byXPath("//a[@href='/my/future/']");
+    private final Button watchLaterButton = Button.byText("Смотреть позже");
 
     /**
      * Кнопка "Профиль"
      */
     private final Button profileButton = Button.byTextInsideA("Профиль");
+
+    /**
+     * Кнопка открытия бокового меню
+     */
+    private final Button openButton = Button.byXPath("//button[contains(@class, 'header-module__headerLeftBurgerMenu')]");
+
+    /**
+     * Кнопка "История просмотра"
+     */
+    private final Button histButton = Button.byXPath("//a[@href='/my/history/']");
+
+    /**
+     * Кнопка "Добавить"
+     */
+    private final Button addButton = Button.byXPath(
+            "//section[contains(@class, 'wdp-header-right-module__uploader')]" +
+                    "//button[@aria-label='Добавить' and contains(@class, " +
+                    "'freyja_char-icon-round-button__button_kkH9C')]");
+
+    /**
+     * Кнопка "Загрузить видео"
+     */
+    private final Button uploadVideoButton = Button.byXPath(
+            "//ul[contains(@class, 'freyja_char-header-video-menu__list')]//*[contains(text(), 'Загрузить видео')]");
+
+    /**
+     * Меню кнопки "Добавить"
+     */
+    private final SelenideElement videoMenuList = $x("//ul[contains(@class, 'freyja_char-header-video-menu__list')]");
+
 
 
     /**
@@ -80,10 +106,18 @@ public class MainAfterLoginPage extends BasePage {
     /**
      * Переход на страницу плейлистов
      */
-    //public PlaylistsPage goToPlaylists() {
-    //    playlistsButton.press();
-    //    return new PlaylistsPage();
-    //}
+    public void goToPlaylists() {
+        playlistsButton.press();
+        return new PlaylistsPage();
+    }
+
+    /**
+     * Переход на страницу "Смотреть позже"
+     */
+    public WatchLaterPage openWatchLater() {
+        watchLaterButton.press();
+        return new WatchLaterPage();
+    }
 
     /**
      * Нажатие на иконку пользователя
@@ -119,35 +153,33 @@ public class MainAfterLoginPage extends BasePage {
     }
 
     /**
-     * Открытие раздела Истории просмотров
+     * Открытие страницы истории просмотров:
+     * - Нажатие на кнопку открытия главного меню
+     * - Нажатие на кнопку перехода в историю просмотров
      */
     public HistoryVideoPage openHistoryVideo() {
-        Button.byXPath(
-                      "//section[@aria-label='Моё']" + "//ul[@class='menu-my-group-links-module__linksList']" + "//a" +
-                              "[contains(@href, '/my/history/')]" + "/div[@class='menu-link-module__link']" + "/div" +
-                              "[@class='menu-link-module__linkContent' and text()='История просмотра']" + "/ancestor" +
-                              "::a")
-              .press();
+        closePopups();
+        openButton.press();
+        histButton.press();
         return new HistoryVideoPage();
     }
 
     /**
-     * Открытие раздела плейлистов
+     * Открытие страницы загрузки видео:
+     * - Нажатие на кнопку "Добавить"
+     * - Нажатие на кнопку "Загрузить видео"
+     * - Возвращает страницу для загрузки видео
      */
-    public PlaylistsPage goToPlaylists(String playlistName) {
-        closePopups();
-        openMenuButton.press();
-        playlistsButton.press();
-        return new PlaylistsPage(playlistName);
-    }
+    public StudioRutubePage openStudioRutubePage() {
+        // 1. Открываем Studio
+        open("https://studio.rutube.ru/uploader");
 
-    /**
-     * Открытие раздела "Смотреть позже"
-     */
-    public WatchLaterPage openWatchLater() {
-        closePopups();
-        openMenuButton.press();
-        watchLaterButton.press();
-        return new WatchLaterPage();
+        // 2. Проверяем авторизацию
+        if ($("#login-form").exists()) {
+            AuthService.auth(); // Переавторизуемся при необходимости
+        }
+
+        // 3. Альтернативный вариант через URL
+        return new StudioRutubePage();
     }
 }

@@ -1,5 +1,7 @@
 package pages.elements;
 
+import com.codeborne.selenide.SelenideElement;
+
 /**
  * Класс элемента типа Button
  */
@@ -27,6 +29,11 @@ public class Button extends BaseElement {
     public String getText() {
         return baseElement.getText();
     }
+
+    /**
+     * Получает baseElemeny
+     */
+    public SelenideElement getBaseElement() { return baseElement;}
 
     /**
      * Получает значение указанного атрибута элемента кнопки.
