@@ -32,8 +32,8 @@ public class CommentTest extends BaseTest {
         ResultsOfSearchPage resultsOfSearchPage = SearchService.search(TEST_VIDEO, SearchType.VIDEO);
         VideoPage mainVideoPage = resultsOfSearchPage.clickVideoNameVideoCardModule();
 
-        mainVideoPage = mainVideoPage.clickCommentField();
-        mainVideoPage.fillCommentInput(COMMENT);
+        mainVideoPage.clickCommentField();
+        mainVideoPage.addComment(COMMENT);
         mainVideoPage.clickSendCommentButton();
 
         boolean commentIsExist = true;

@@ -3,6 +3,7 @@ package pages;
 import pages.elements.Button;
 import pages.elements.Input;
 import pages.elements.CommentModule;
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Страница видео
@@ -25,14 +26,16 @@ public class VideoPage extends BasePage {
             "main/div[1]/div[1]/section/div/div[1]/section[2]/div/section/div[3]/form/div/textarea");
 
     /**
-     * Поле для комментария
+     * Поле комментария
      */
     private final Input commentInput = Input.byWrapper("wdp-comment-input-module__wrapper");
 
     /**
      * Кнопка для отправки комментария
      */
-    private final Button sendCommentButton = Button.byAriaLabel("Отправить");
+    private final Button sendCommentButton = Button.byXPath(
+            "//button[.//span[contains(text(),'Отправить')] and not(@disabled)]"
+    );
 
     /**
      * Кнопка "Смотреть позже"
@@ -77,14 +80,6 @@ public class VideoPage extends BasePage {
     }
 
     /**
-     * Нажатие на кнопку главного меню
-     */
-    public VideoPage openMenu(){
-        menuButton.press();
-        return new VideoPage();
-    }
-
-    /**
      * Открытие раздела "Смотреть позже"
      */
     public WatchLaterPage openWatchLater() {
@@ -110,16 +105,14 @@ public class VideoPage extends BasePage {
     /**
      * Нажатие на поле написания комментария
      */
-    public VideoPage clickCommentField(){
+    public void clickCommentField(){
         commentButton.press();
-        return new VideoPage();
     }
 
-    /**
-     * Ввод комментария в поле
-     */
-    public void fillCommentInput(String searchQuery) {
-        commentInput.fill(searchQuery);
+    public void addComment(String text) {
+        $x("//div[contains(@class,'wdp-comment-input-module__textarea') and @contenteditable='true']")
+                .click();
+        actions().sendKeys(text).perform();
     }
 
     /**
@@ -127,13 +120,6 @@ public class VideoPage extends BasePage {
      */
     public void clickSendCommentButton() {
         sendCommentButton.press();
-    }
-
-    /**
-     * Поиск комментария по имени автора
-     */
-    public CommentModule findCommentByAuthor(String authorName) {
-        return CommentModule.byAuthorName(authorName);
     }
 
     /**
@@ -148,13 +134,6 @@ public class VideoPage extends BasePage {
      */
     public void deleteCommentByText(String commentText) {
         findCommentByText(commentText).deleteComment();
-    }
-
-    /**
-     * Удаление комментария по автору
-     */
-    public void deleteCommentByAuthor(String authorName) {
-        findCommentByAuthor(authorName).deleteComment();
     }
 
     /**

@@ -32,11 +32,6 @@ public class VideoCardModule extends BaseElement {
     }
 
     /**
-     * Отображение карточки видео
-     */
-    public boolean isCardsDisplayed() { return baseElement.isDisplayed(); }
-
-    /**
      * Формирование Xpath карточки по названию видео
      */
     public static VideoCardModule byVideoTitle(String title) {
@@ -48,13 +43,5 @@ public class VideoCardModule extends BaseElement {
      */
     public static VideoCardModule byChannelName(String channelName) {
         return new VideoCardModule(CHANNEL_NAME_XPATH, channelName);
-    }
-
-    /**
-     * Точный поиск
-     **/
-    public static VideoCardModule byExactVideoTitle(String title) {
-        String exactXpath = String.format("//a[normalize-space()='%s']", title);
-        return new VideoCardModule(exactXpath, title);
     }
 }
