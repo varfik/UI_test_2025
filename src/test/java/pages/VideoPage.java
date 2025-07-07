@@ -1,8 +1,16 @@
 package pages;
 
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import pages.elements.Button;
 import pages.elements.Input;
 import pages.elements.CommentModule;
+
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.WebDriverRunner.url;
 
 /**
  * Страница видео
@@ -68,6 +76,27 @@ public class VideoPage extends BasePage {
      * Кнопка перехода в "Смотреть позже"
      */
     private final Button goToWatchLaterButton = Button.byXPath("//a[@href='/my/future/']");
+    
+    /**
+     * Кнопка "Повторить" для просмотра видео
+     */
+    private final Button repeatButton = Button.byAriaLabel("Повторить (горячая клавиша K английская)");
+
+    /**
+     * Кнопка открытия бокового меню
+     */
+    private final Button openButton = Button.byXPath("//button[contains(@class, 'header-module__headerLeftBurgerMenu')]");
+
+    /**
+     * Кнопка "История просмотра"
+     */
+    private final Button histButton = Button.byXPath("//a[@href='/my/history/']");
+
+    /**
+     * Область видеоплеера, где воспроизводится видео
+     */
+    private final SelenideElement videoPlayer = $("div[class*='video-wrapper-module__videoWrapper']")
+            .shouldBe(visible);
 
     /**
      * Конструктор класса
@@ -235,5 +264,97 @@ public class VideoPage extends BasePage {
         } catch (Exception e) {
             return false;
         }
+    }
+    
+    /**
+     * Открытие страницы истории просмотров:
+     * - Нажатие на кнопку открытия главного меню
+     * - Нажатие на кнопку перехода в историю просмотров
+     */
+    public void openHistoryVideo() {
+        openButton.press();
+        histButton.press();
+    }
+
+    /**
+     * Воспроизведение видео с выполнением необходимых действий:
+     * - Наведение курсора на область видео (для активации элементов управления)
+     * - Ожидание появления видимой области видео
+     * - Ожидание появления кнопки повтора (индикатор полной загрузки видео)
+     *    с таймаутом (5 минут) для обработки видео
+     */
+    public void watchVideo() {
+        videoPlayer.hover().shouldBe(visible);
+        repeatButton.getBaseElement().shouldBe(visible, Duration.ofMinutes(5));
+    }
+
+    /**
+     * Ожидает появления и загрузки видеоплеера на странице
+     */
+    public VideoPage waitForContent() {
+        $("div.video-player").shouldBe(visible);
+        return this;
+    }
+   
+
+    /**
+     * Проверяет видимость видеоплеера на странице
+     */
+    public boolean isPlayerVisible() {
+        return $("div.video-player").isDisplayed();
+    }
+
+    /**
+     * Получает текст описания видео
+     */
+    public String getDescription() {
+        return $("div.video-description").getText();
+    }
+
+    /**
+     * Проверяет видимость обложки видео
+     */
+    public boolean isCoverImageVisible() {
+        return $("img.video-cover").isDisplayed();
+    }
+
+    /**
+     * Получает название канала, загрузившего видео
+     */
+    public String getChannelName() {
+        return $("a.channel-link").getText();
+    }
+
+    /**
+     * Получает заголовок видео
+     */
+    public String getTitle() {
+        return $("h1.video-title").getText();
+    }
+
+    /**
+     * Проверяет наличие индикатора опубликованного состояния
+     */
+    public boolean isPublishedStateVisible() {
+        return $("div.published-status-indicator").isDisplayed();
+    }
+
+    /**
+     * Открывает страницу видео по URL
+     */
+    public static VideoPage openByUrl(String url) {
+        if (url == null || !url.contains("/video/")) {
+            throw new IllegalArgumentException("Invalid video URL format. Must contain '/video/'");
+        }
+        try {
+            Selenide.open(url);
+            if (!url().contains("/video/")) {
+                throw new IllegalStateException("Failed to open video page. Current URL: " + url());
+            }
+            return new VideoPage();
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to open video URL: " + url, e);
+        }
+   
     }
 }

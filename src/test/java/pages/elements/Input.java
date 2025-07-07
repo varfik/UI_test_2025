@@ -1,4 +1,5 @@
 package pages.elements;
+import org.openqa.selenium.Keys;
 
 /**
  * Класс элемента типа Input
@@ -23,7 +24,11 @@ public class Input extends BaseElement {
     public void fill(String value) {
         baseElement.setValue(value);
     }
-
+	
+    public void clearField() {
+        baseElement.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+    }
+    
     /**
      * Получение значения в поле
      */
@@ -66,4 +71,12 @@ public class Input extends BaseElement {
         return new Input(WRAPPER_XPATH, wrapper);
     }
 
+
+    /**
+     * Формирование Xpath по строке xpath
+     */
+    public static Input byXPath(String xpath) {
+        return new Input(xpath, "");
+    }
+	
 }
