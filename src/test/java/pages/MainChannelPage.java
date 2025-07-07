@@ -24,7 +24,7 @@ public class MainChannelPage extends BasePage {
     /**
      * Кнопка "Плейлисты"
      */
-    private final Button playlistsButton = Button.byXPath("//a[contains(@href,'/playlists/')]");
+    private final Button playlistsButton = Button.byXPath("//a[@href='/channel/66128100/playlists/']");
 
     /**
      * Конструктор класса
@@ -64,16 +64,8 @@ public class MainChannelPage extends BasePage {
     /**
      * Переход на страницу плейлистов канала
      */
-    public PlaylistsPage goToPlaylists() {
+    public PlaylistsPage goToPlaylists(String playlistName) {
         playlistsButton.press();
-        return new PlaylistsPage();
-    }
-
-    /**
-     * Переход на страницу плейлистов пользователя
-     */
-    public PlaylistsPage goToMyPlaylists() {
-        playlistsButton.press();
-        return new PlaylistsPage();
+        return new PlaylistsPage(playlistName);
     }
 }

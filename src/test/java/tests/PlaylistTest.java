@@ -2,10 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pages.MainAfterLoginPage;
-import pages.MainChannelPage;
-import pages.ResultsOfSearchPage;
-import pages.PlaylistsPage;
+import pages.*;
 import services.AuthService;
 import services.SearchService;
 import services.SearchType;
@@ -15,7 +12,6 @@ import services.SearchType;
  * @author Soldunova
  */
 public class PlaylistTest extends BaseTest {
-    private final String CHANNEL_NAME = "Практика Лэти Тестирование 2025";
     private final String PLAYLIST_NAME = "Тестовый плейлист";
 
     /**
@@ -30,20 +26,22 @@ public class PlaylistTest extends BaseTest {
      */
     @Test
     public void savePlaylist() {
-        MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
-        ResultsOfSearchPage resultsOfSearchPage = SearchService.search(CHANNEL_NAME, SearchType.VIDEO);
+        String CHANNEL_NAME = "Практика Лэти Тестирование 2025";
+
+        AuthService.auth();
+        ResultsOfSearchPage resultsOfSearchPage = SearchService.search(CHANNEL_NAME, SearchType.CHANNEL);
         MainChannelPage channelPage = resultsOfSearchPage.clickChannelNameVideoCardModule();
 
-        PlaylistsPage playlistsPage = channelPage.goToPlaylists();
-        playlistsPage.clickMenuCardModule();
-        playlistsPage.savePlaylist();
-        PlaylistsPage myPlaylists = channelPage.goToMyPlaylists();
+        PlaylistsPage playlistsPage = channelPage.goToPlaylists(PLAYLIST_NAME);
+        PlaylistPage playlistPage = playlistsPage.clickPlaylist();
+        playlistPage.savePlaylist();
 
-        Assertions.assertFalse(myPlaylists.isPlaylistVisible(), "Плейлист не отображается!");
+        PlaylistsPage myPlaylists = playlistPage.goToMyPlaylists(PLAYLIST_NAME);
+        Assertions.assertTrue(myPlaylists.isPlaylistVisible(PLAYLIST_NAME), "Плейлист не отображается!");
     }
 
     /**
-     * Тестирование сохранения и удаления плейлиста:
+     * Тестирование удаления плейлиста:
      * - авторизация
      * - переход в раздел "Мои плейлисты"
      * - удаление плейлиста
@@ -51,11 +49,13 @@ public class PlaylistTest extends BaseTest {
      */
     @Test
     public void deletePlaylist() {
-        MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
-        PlaylistsPage myPlaylists = mainAfterLoginPage.goToPlaylists();
+        MainAfterLoginPage mainPage = AuthService.auth();
 
-        myPlaylists.clickMenuCardModule();
-        myPlaylists.deletePlaylist();
-        Assertions.assertTrue(myPlaylists.isPlaylistVisible(), "Плейлист не удален!");
+        PlaylistsPage playlistsPage = mainPage.goToPlaylists(PLAYLIST_NAME);
+        PlaylistPage playlistPage = playlistsPage.clickPlaylist();
+        playlistPage.deletePlaylist();
+
+        PlaylistsPage myPlaylists = playlistPage.goToMyPlaylists(PLAYLIST_NAME);
+        Assertions.assertFalse(myPlaylists.isPlaylistVisible(PLAYLIST_NAME), "Плейлист не удален!");
     }
 }

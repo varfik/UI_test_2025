@@ -80,10 +80,10 @@ public class MainAfterLoginPage extends BasePage {
     /**
      * Переход на страницу плейлистов
      */
-    public PlaylistsPage goToPlaylists() {
-        playlistsButton.press();
-        return new PlaylistsPage();
-    }
+    //public PlaylistsPage goToPlaylists() {
+    //    playlistsButton.press();
+    //    return new PlaylistsPage();
+    //}
 
     /**
      * Нажатие на иконку пользователя
@@ -134,11 +134,11 @@ public class MainAfterLoginPage extends BasePage {
     /**
      * Открытие раздела плейлистов
      */
-    public PlaylistsPage openPlaylists() {
+    public PlaylistsPage goToPlaylists(String playlistName) {
         closePopups();
         openMenuButton.press();
         playlistsButton.press();
-        return new PlaylistsPage();
+        return new PlaylistsPage(playlistName);
     }
 
     /**
