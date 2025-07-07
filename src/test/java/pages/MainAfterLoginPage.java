@@ -37,7 +37,7 @@ public class MainAfterLoginPage extends BasePage {
     /**
      * Кнопка перехода в "Смотреть позже"
      */
-    private final Button watchLaterButton = Button.byText("Смотреть позже");
+    private final Button watchLaterButton = Button.byXPath("//a[@href='/my/future/']");
 
     /**
      * Кнопка "Профиль"
@@ -53,6 +53,7 @@ public class MainAfterLoginPage extends BasePage {
      * Кнопка "История просмотра"
      */
     private final Button histButton = Button.byXPath("//a[@href='/my/history/']");
+
     /**
      * Кнопка "Добавить"
      */
@@ -112,6 +113,7 @@ public class MainAfterLoginPage extends BasePage {
      * Переход на страницу "Смотреть позже"
      */
     public WatchLaterPage openWatchLater() {
+        openButton.press();
         watchLaterButton.press();
         return new WatchLaterPage();
     }

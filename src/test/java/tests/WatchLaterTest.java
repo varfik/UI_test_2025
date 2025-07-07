@@ -15,8 +15,6 @@ import services.SearchType;
  * @author Soldunova
  */
 public class WatchLaterTest extends BaseTest {
-    private final String TEST_VIDEO = "Искусственный интеллект и его применение в жизни / Практика 2025 ЛЭТИ 3383";
-
     /**
      * Тестирование добавления видео в "Смотреть позже"
      * - авторизация
@@ -28,6 +26,8 @@ public class WatchLaterTest extends BaseTest {
      */
     @Test
     public void testAddToWatchLater() {
+        String TEST_VIDEO = "Искусственный интеллект и его применение в жизни / Практика 2025 ЛЭТИ 3383";
+
         AuthService.auth();
         ResultsOfSearchPage resultsOfSearchPage = SearchService.search(TEST_VIDEO, SearchType.VIDEO);
 
@@ -50,6 +50,8 @@ public class WatchLaterTest extends BaseTest {
      */
     @Test
     public void testRemoveFromWatchLater() {
+        String TEST_VIDEO = "Космос и его составляющие / Практика 2025 ЛЭТИ 3383";
+
         MainAfterLoginPage mainPageAfterLogin = AuthService.auth();
         WatchLaterPage watchLater = mainPageAfterLogin.openWatchLater();
 
