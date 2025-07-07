@@ -103,9 +103,9 @@ public class MainAfterLoginPage extends BasePage {
     /**
      * Переход на страницу плейлистов
      */
-    public void goToPlaylists() {
+    public PlaylistsPage goToPlaylists(String playlistName) {
         playlistsButton.press();
-        return new PlaylistsPage();
+        return new PlaylistsPage(playlistName);
     }
 
     /**

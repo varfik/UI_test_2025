@@ -171,48 +171,6 @@ public class VideoPage extends BasePage {
     public void changeWatchLaterStatus(){ watchLaterButton.press(); }
 
     /**
-     * Кнопка лайка
-     */
-    private final Button likeButton = Button.byXPath(
-            "//button[contains(@class, 'wdp-video-like-dislike-reactions-module__reaction') " + "and " +
-                    "@title='Нравится']");
-
-    /**
-     * SVG элемент для проверки состояния лайка
-     */
-    private final Button likeSvg = Button.byXPath(
-            "//button[contains(@class, 'wdp-video-like-dislike-reactions-module__reaction')]" + "//*[local-name()" +
-                    "='svg' and @fill]");
-
-    /**
-     * Счетчик лайков
-     */
-    private final Button likesCounter = Button.byXPath(
-            "//span[contains(@class, 'wdp-video-like-dislike-reactions-module__counter')]");
-            
-    
-    /**
-     * Кнопка "Повторить" для просмотра видео
-     */
-    private final Button repeatButton = Button.byAriaLabel("Повторить (горячая клавиша K английская)");
-
-    /**
-     * Кнопка открытия бокового меню
-     */
-    private final Button openButton = Button.byXPath("//button[contains(@class, 'header-module__headerLeftBurgerMenu')]");
-
-    /**
-     * Кнопка "История просмотра"
-     */
-    private final Button histButton = Button.byXPath("//a[@href='/my/history/']");
-
-    /**
-     * Область видеоплеера, где воспроизводится видео
-     */
-    private final SelenideElement videoPlayer = $("div[class*='video-wrapper-module__videoWrapper']")
-            .shouldBe(visible);
-
-    /**
      * Проверка, выставлен ли лайк - возвращает булево значение:
      * - Проверка цвета кнопки лайка (не закрашен - кнопка сейчас не активна)
      * - Проверка состояния кнопки ("active" - лайк уже стоит)
