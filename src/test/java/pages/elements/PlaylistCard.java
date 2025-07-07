@@ -32,7 +32,7 @@ public class PlaylistCard extends BaseElement {
      */
     public boolean isVisible(String playlistName) {
         return new PlaylistCard(
-                "//div[contains(@class, 'wdp-card-wrapper-module__wrapper')][.//a[contains(text(), '%s')]]",
+                PLAYLIST_NAME_XPATH,
                 playlistName
         ).isDisplayed();
     }

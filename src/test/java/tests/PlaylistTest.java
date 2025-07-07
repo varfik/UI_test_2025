@@ -36,6 +36,7 @@ public class PlaylistTest extends BaseTest {
         PlaylistPage playlistPage = playlistsPage.clickPlaylist();
         playlistPage.savePlaylist();
 
+        playlistPage.openMenu();
         PlaylistsPage myPlaylists = playlistPage.goToMyPlaylists(PLAYLIST_NAME);
         Assertions.assertTrue(myPlaylists.isPlaylistVisible(PLAYLIST_NAME), "Плейлист не отображается!");
     }

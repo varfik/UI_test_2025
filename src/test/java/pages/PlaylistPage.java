@@ -46,10 +46,14 @@ public class PlaylistPage extends BasePage {
     }
 
     /**
+     * Открытие меню
+     */
+    public void openMenu() { menuButton.press(); }
+
+    /**
      * Переход на страницу плейлистов пользователя
      */
     public PlaylistsPage goToMyPlaylists(String playlistName) {
-        menuButton.press();
         playlistsButton.press();
         return new PlaylistsPage(playlistName);
     }
