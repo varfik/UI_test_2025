@@ -12,8 +12,6 @@ import services.SearchType;
  * @author Soldunova
  */
 public class PlaylistTest extends BaseTest {
-    private final String PLAYLIST_NAME = "Тестовый плейлист";
-
     /**
      * Тестирование сохранения и удаления плейлиста:
      * - авторизация
@@ -26,6 +24,7 @@ public class PlaylistTest extends BaseTest {
      */
     @Test
     public void savePlaylist() {
+        String PLAYLIST_NAME = "Тестовый плейлист";
         String CHANNEL_NAME = "Практика Лэти Тестирование 2025";
 
         AuthService.auth();
@@ -50,6 +49,7 @@ public class PlaylistTest extends BaseTest {
      */
     @Test
     public void deletePlaylist() {
+        String PLAYLIST_NAME = "Тестовый плейлист 2";
         MainAfterLoginPage mainPage = AuthService.auth();
 
         PlaylistsPage playlistsPage = mainPage.goToPlaylists(PLAYLIST_NAME);
