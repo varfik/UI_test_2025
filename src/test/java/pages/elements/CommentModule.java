@@ -20,19 +20,18 @@ public class CommentModule extends BaseElement {
     /**
      * Кнопка меню комментария (троеточие)
      */
-    private static final String MENU_BUTTON_XPATH = "//button[contains(@class, " +
-            "'wdp-comment-list-menu-module__button')]";
+    private static final Button commentMenuButton = Button.byXPath("//button[contains(@class, " +
+            "'wdp-comment-list-menu-module__button')]");
 
     /**
      * Кнопка "Удалить" в выпадающем меню
      */
-    private static final String DELETE_BUTTON_XPATH = "//div[contains(@class, 'wdp-comment-list-menu-module__dropdown" +
-            "')]//button[contains(text(), 'Удалить')]";
+    private static final Button deleteCommentButton = Button.byText("Удалить");
 
     /**
      * Кнопка подтверждения удаления
      */
-    private static final String CONFIRM_DELETE_BUTTON_XPATH = "//button[contains(text(), 'Удалить комментарий')]";
+    private static final Button confirmDeleteCommentButton = Button.byText("Удалить");
 
     /**
      * Конструктор класса
@@ -45,7 +44,7 @@ public class CommentModule extends BaseElement {
      * Нажатие на меню комментария (троеточие)
      */
     public void pressMenuButton() {
-        Button.byXPath(MENU_BUTTON_XPATH).press();
+        commentMenuButton.press();
     }
 
     /**
@@ -53,9 +52,11 @@ public class CommentModule extends BaseElement {
      */
     public void deleteComment() {
         pressMenuButton();
-        Button.byXPath(DELETE_BUTTON_XPATH).press();
-        Button.byXPath(CONFIRM_DELETE_BUTTON_XPATH).press();
+        deleteCommentButton.press();
+        confirmDeleteCommentButton.press();
     }
+
+    //public boolean commentIsVisible(){ .(); }
 
     /**
      * Формирование Xpath комментария по имени автора
@@ -70,5 +71,4 @@ public class CommentModule extends BaseElement {
     public static CommentModule byCommentText(String commentText) {
         return new CommentModule(COMMENT_TEXT_XPATH, commentText);
     }
-
 }

@@ -14,6 +14,10 @@ import services.SearchType;
  * @author Soldunova
  **/
 public class CommentTest extends BaseTest {
+
+    private final String TEST_VIDEO = "Космос и его составляющие / Практика 2025 ЛЭТИ 3383";
+    private final String COMMENT = "Хорошее видео!";
+
     /**
      * Тест проверяет добавление комментария:
      * - авторизация
@@ -24,16 +28,17 @@ public class CommentTest extends BaseTest {
      */
     @Test
     public void AddedCommentIsDisplayed() {
-        MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
-        ResultsOfSearchPage resultsOfSearchPage = SearchService.search(
-                "Космос и его составляющие / Практика 2025 ЛЭТИ 3383", SearchType.VIDEO);
+        AuthService.auth();
+        ResultsOfSearchPage resultsOfSearchPage = SearchService.search(TEST_VIDEO, SearchType.VIDEO);
         VideoPage mainVideoPage = resultsOfSearchPage.clickVideoNameVideoCardModule();
-        mainVideoPage.fillCommentInput("Хорошее видео!");
+
+        mainVideoPage.clickCommentField();
+        mainVideoPage.addComment(COMMENT);
         mainVideoPage.clickSendCommentButton();
 
         boolean commentIsExist = true;
         try {
-            mainVideoPage.findCommentByText("Хорошее видео!");
+            mainVideoPage.findCommentByText(COMMENT);
         } catch (Exception e) {
             commentIsExist = false;
         }
@@ -51,14 +56,13 @@ public class CommentTest extends BaseTest {
      */
     @Test
     public void DeletedCommentIsNotDisplayed() {
-        MainAfterLoginPage mainAfterLoginPage = AuthService.auth();
-        ResultsOfSearchPage resultsOfSearchPage = SearchService.search(
-                "Космос и его составляющие / Практика 2025 ЛЭТИ 3383", SearchType.VIDEO);
+        AuthService.auth();
+        ResultsOfSearchPage resultsOfSearchPage = SearchService.search(TEST_VIDEO, SearchType.VIDEO);
         VideoPage mainVideoPage = resultsOfSearchPage.clickVideoNameVideoCardModule();
 
         boolean commentIsDeleted = true;
         try {
-            mainVideoPage.deleteCommentByText("Хорошее видео!");
+            mainVideoPage.deleteCommentByText(COMMENT);
         } catch (Exception e) {
             commentIsDeleted = false;
         }

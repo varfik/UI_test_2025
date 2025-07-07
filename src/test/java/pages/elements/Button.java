@@ -31,6 +31,11 @@ public class Button extends BaseElement {
     }
 
     /**
+     * Получает baseElemeny
+     */
+    public SelenideElement getBaseElement() { return baseElement;}
+
+    /**
      * Получает значение указанного атрибута элемента кнопки.
      */
     public String getAttribute(String attributeName) {

@@ -18,22 +18,6 @@ public class VideoCardModule extends BaseElement {
             "//div[contains(@class, 'authorWrapper')]//a[contains(text(), " + "'%s')]";
 
     /**
-     * Кнопка меню видео
-     */
-    private final Button videoMenuButton = Button.byXPath("//button[contains(@class, " +
-            "'freyja_char-more-menu__more-menu--anchor_bFSMm')]");
-
-    /**
-     * Кнопка добавления видео в "Смотреть позже"
-     */
-    private final Button addToWatchLaterButton = Button.byText("Смотреть позже");
-
-    /**
-     * Кнопка удаления видео из "Смотреть позже"
-     */
-    private final Button deleteFromWatchLaterButton = Button.byText("Удалить");
-
-    /**
      * Конструктор класса
      */
     private VideoCardModule(String xpath, String param) {
@@ -48,13 +32,6 @@ public class VideoCardModule extends BaseElement {
     }
 
     /**
-     * Отображение карточки видео
-     */
-    public boolean isCardsDisplayed() {
-        return baseElement.isDisplayed();
-    }
-
-    /**
      * Формирование Xpath карточки по названию видео
      */
     public static VideoCardModule byVideoTitle(String title) {
@@ -66,34 +43,5 @@ public class VideoCardModule extends BaseElement {
      */
     public static VideoCardModule byChannelName(String channelName) {
         return new VideoCardModule(CHANNEL_NAME_XPATH, channelName);
-    }
-
-    /**
-     * Открытие меню видео
-     */
-    public void openMenu() {
-        videoMenuButton.press();
-    }
-
-    /**
-     * Добавить видео в "Смотреть позже"
-     */
-    public void addToWatchLater() {
-        addToWatchLaterButton.press();
-    }
-
-    /**
-     * Удалить видео из "Смотреть позже"
-     */
-    public void deleteFromWatchLater() {
-        deleteFromWatchLaterButton.press();
-    }
-
-    /**
-     * Точный поиск
-     **/
-    public static VideoCardModule byExactVideoTitle(String title) {
-        String exactXpath = String.format("//a[normalize-space()='%s']", title);
-        return new VideoCardModule(exactXpath, title);
     }
 }

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pages.MainAfterLoginPage;
 import pages.ResultsOfSearchPage;
+import pages.VideoPage;
 import pages.WatchLaterPage;
 import services.AuthService;
 import services.SearchService;
@@ -19,38 +20,44 @@ public class WatchLaterTest extends BaseTest {
     /**
      * Тестирование добавления видео в "Смотреть позже"
      * - авторизация
-     * - поиск канала по названию тестового видео
-     * - открывание меню у найденного видео
+     * - поиск видео по названию
+     * - переход на страницу видео
      * - добавление видео в "Смотреть позже"
-     * - перейти на страницу "Смотреть позже"
+     * - переход на страницу "Смотреть позже"
      * - проверка наличия видео в списке
      */
     @Test
     public void testAddToWatchLater() {
-        MainAfterLoginPage mainPageAfterLogin = AuthService.auth();
-        ResultsOfSearchPage resultsOfSearchPage = SearchService.search(TEST_VIDEO, SearchType.CHANNEL);
+        AuthService.auth();
+        ResultsOfSearchPage resultsOfSearchPage = SearchService.search(TEST_VIDEO, SearchType.VIDEO);
 
-        resultsOfSearchPage.openVideoMenu();
-        resultsOfSearchPage.addToWatchLater();
+        VideoPage videoPage = resultsOfSearchPage.clickVideoNameVideoCardModule();
+        videoPage.changeWatchLaterStatus();
 
-        WatchLaterPage watchLater = mainPageAfterLogin.openWatchLater();
-        Assertions.assertTrue(watchLater.isVideoVisible(TEST_VIDEO), "Видео не добавилось в 'Смотреть позже'");
+        WatchLaterPage watchLater = videoPage.openWatchLater();
+        Assertions.assertTrue(watchLater.isVideoVisible(TEST_VIDEO),
+                "Видео не добавилось в 'Смотреть позже'");
     }
 
     /**
-     * Тестирование добавления видео в "Смотреть позже" и его удаления:
+     * Тестирование удаление видео из "Смотреть позже":
      * - авторизация
-     * - перейти на страницу "Смотреть позже"
-     * - удалить видео из "Смотреть позже"
-     * - проверка отсутствие видео в списке
+     * - переход на страницу "Смотреть позже"
+     * - переход на страницу видео по названию
+     * - удаление видео из "Смотреть позже" нажатием кнопки
+     * - переход на страницу "Смотреть позже"
+     * - проверка отсутствия видео в списке
      */
     @Test
     public void testRemoveFromWatchLater() {
         MainAfterLoginPage mainPageAfterLogin = AuthService.auth();
         WatchLaterPage watchLater = mainPageAfterLogin.openWatchLater();
 
-        watchLater.openVideoMenu();
-        watchLater.deleteFromWatchLater();
-        Assertions.assertFalse(watchLater.isVideoVisible(TEST_VIDEO), "Видео не удалилось из 'Смотреть позже'");
+        VideoPage videoPage = watchLater.clickVideoNameVideoCardModule(TEST_VIDEO);
+        videoPage.changeWatchLaterStatus();
+        watchLater = videoPage.openWatchLater();
+
+        Assertions.assertFalse(watchLater.isVideoVisible(TEST_VIDEO),
+                "Видео не удалилось из 'Смотреть позже'");
     }
 }

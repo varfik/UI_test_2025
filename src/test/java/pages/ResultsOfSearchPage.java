@@ -46,21 +46,6 @@ public class ResultsOfSearchPage extends BasePage {
     }
 
     /**
-     * Нажатие на меню карточки видео
-     */
-    public WatchLaterPage openVideoMenu() {
-        videoCardModule.openMenu();
-        return null;
-    }
-
-    /**
-     * Добавление видео в "Смотреть позже"
-     */
-    public void addToWatchLater() {
-        videoCardModule.addToWatchLater();
-    }
-
-    /**
      * Проверяет, отображается ли хотя бы одна карточка видео
      */
     public boolean isVideoCardDisplayed() {

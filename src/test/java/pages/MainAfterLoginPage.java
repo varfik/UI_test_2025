@@ -1,10 +1,13 @@
 package pages;
 
+import com.codeborne.selenide.SelenideElement;
 import pages.elements.Button;
 import pages.elements.Image;
 import pages.elements.Input;
+import services.AuthService;
 import java.util.List;
 import java.util.stream.Collectors;
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Главная страница Rutube.ru после авторизации
@@ -50,6 +53,24 @@ public class MainAfterLoginPage extends BasePage {
      * Кнопка "История просмотра"
      */
     private final Button histButton = Button.byXPath("//a[@href='/my/history/']");
+    /**
+     * Кнопка "Добавить"
+     */
+    private final Button addButton = Button.byXPath(
+            "//section[contains(@class, 'wdp-header-right-module__uploader')]" +
+                    "//button[@aria-label='Добавить' and contains(@class, " +
+                    "'freyja_char-icon-round-button__button_kkH9C')]");
+
+    /**
+     * Кнопка "Загрузить видео"
+     */
+    private final Button uploadVideoButton = Button.byXPath(
+            "//ul[contains(@class, 'freyja_char-header-video-menu__list')]//*[contains(text(), 'Загрузить видео')]");
+
+    /**
+     * Меню кнопки "Добавить"
+     */
+    private final SelenideElement videoMenuList = $x("//ul[contains(@class, 'freyja_char-header-video-menu__list')]");
 
     /**
      * Конструктор класса
@@ -82,7 +103,7 @@ public class MainAfterLoginPage extends BasePage {
     /**
      * Переход на страницу плейлистов
      */
-    public PlaylistsPage goToPlaylists() {
+    public void goToPlaylists() {
         playlistsButton.press();
         return new PlaylistsPage();
     }
@@ -138,5 +159,24 @@ public class MainAfterLoginPage extends BasePage {
         openButton.press();
         histButton.press();
         return new HistoryVideoPage();
+    }
+
+    /**
+     * Открытие страницы загрузки видео:
+     * - Нажатие на кнопку "Добавить"
+     * - Нажатие на кнопку "Загрузить видео"
+     * - Возвращает страницу для загрузки видео
+     */
+    public StudioRutubePage openStudioRutubePage() {
+        // 1. Открываем Studio
+        open("https://studio.rutube.ru/uploader");
+
+        // 2. Проверяем авторизацию
+        if ($("#login-form").exists()) {
+            AuthService.auth(); // Переавторизуемся при необходимости
+        }
+
+        // 3. Альтернативный вариант через URL
+        return new StudioRutubePage();
     }
 }

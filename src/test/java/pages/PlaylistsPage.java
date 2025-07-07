@@ -1,13 +1,11 @@
 package pages;
 
-import pages.elements.Button;
 import pages.elements.PlaylistCard;
 
 /**
  * Страница с плейлистами пользователя
  */
 public class PlaylistsPage extends BasePage {
-
     /**
      * Карточка плейлиста
      */
@@ -16,35 +14,23 @@ public class PlaylistsPage extends BasePage {
     /**
      * Конструктор класса
      */
-    public PlaylistsPage() {
+    public PlaylistsPage(String playlistName) {
         super(PlaylistsPage.class, "playlists");
+        playlistCard = PlaylistCard.byPlaylistName(playlistName);
     }
 
     /**
-     * Нажатие на кнопку меню в карточке плейлиста
+     * Нажатие на карточку плейлиста
      */
-    public void clickMenuCardModule() {
-        playlistCard.pressMenuButton();
-    }
-
-    /**
-     * Удаление плейлиста
-     */
-    public void deletePlaylist() {
-        playlistCard.pressDeleteButton();
-    }
-
-    /**
-     * Сохранение плейлиста
-     */
-    public void savePlaylist() {
-        playlistCard.pressSaveButton();
+    public PlaylistPage clickPlaylist(){
+        playlistCard.press();
+        return new PlaylistPage();
     }
 
     /**
      * Видимость плейлиста
      */
-    public boolean isPlaylistVisible() {
-        return playlistCard.isVisible();
+    public boolean isPlaylistVisible(String playlistName) {
+        return playlistCard.isVisible(playlistName);
     }
 }
