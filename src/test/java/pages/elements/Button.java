@@ -77,6 +77,7 @@ public class Button extends BaseElement {
         return new Button(xpath, "");
     }
 
+    public SelenideElement getBaseElement() { return baseElement;}
 }
 
 

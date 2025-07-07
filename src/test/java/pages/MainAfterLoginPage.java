@@ -53,7 +53,6 @@ public class MainAfterLoginPage extends BasePage {
      * Кнопка "История просмотра"
      */
     private final Button histButton = Button.byXPath("//a[@href='/my/history/']");
-
     /**
      * Кнопка "Добавить"
      */
@@ -72,8 +71,6 @@ public class MainAfterLoginPage extends BasePage {
      * Меню кнопки "Добавить"
      */
     private final SelenideElement videoMenuList = $x("//ul[contains(@class, 'freyja_char-header-video-menu__list')]");
-
-
 
     /**
      * Конструктор класса

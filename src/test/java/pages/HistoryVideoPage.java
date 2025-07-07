@@ -1,70 +1,43 @@
 package pages;
 
+import org.openqa.selenium.By;
 import pages.elements.Button;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$$;
 
 /**
  * Страница Истории просмотров
  */
 public class HistoryVideoPage extends BasePage {
     /**
-     * XPath видео
+     * XPath кнопки "Меню" для текущего видео
      */
-    private static final String VIDEO_CARD_XPATH =
-            "//div[contains(@class, 'wdp-card-wrapper-module_wrapper') and " + ".//a[contains(@title, '%s')]]";
+    private static final String MENU_BUTTON_XPATH =
+            "/following-sibling::button[contains(@class, 'freyja_char-more-menu__more-menu')]";
 
     /**
-     * Кнопка меню для видео
+     * XPath кнопки "Удалить из истории" из "Меню" для текущего видео
      */
-    private static final String MENU_BUTTON_XPATH = "//button[contains(@class, ' freyja_char-more-menu__more-menu')]";
+    private static final String DELETE_BUTTON_XPATH =
+            "//li[contains(@class, 'freyja_char-menu-list__menu-list-item')]" +
+                    "//*[contains(@class, 'svg-icon--IconTrash')]";
 
-    /**
-     * Кнопка очистки истории
-     */
-    private final Button cleanHistoryButton = Button.byXPath(
-            "//button[contains(@class, 'wdp-my-delete-history-button-module__button') and .//span[text()='Очистить']]");
-
-    /**
-     * Кнопка удаления из истории
-     */
-    private final Button removeFromHistoryButton = Button.byXPath(
-                "//li[contains(@class, 'freyja_char-menu-list__menu-list-item')]" + "//svg[contains(@class, " + "'svg"
-                        + "-icon--IconTrash')]");
-
-    /**
-     * Кнопка подтверждения удаления из истории
-     */
-    private final Button popupConfirmButton = Button.byXPath(
-                "//div[contains(@class, 'wdp-popup-module_popup')]//button[contains(text(), 'Очистить')]");
-
-    /**
-     * Кнопка видео в истории просмотра
-     */
-    private final Button videoInHisturyButton = Button.byXPath(
-                "//div[contains(@class, 'wdp-my-history-module_grid')]" + "//div[@data-pos-num]");
-    
     /**
      * Конструктор класса
      */
     public HistoryVideoPage() {
         super(HistoryVideoPage.class, "HistoryVideo");
     }
-    
-    /**
-     * Открытие меню для видео
-     * - Получение XPath видео с указанным названием
-     * - Получение кнопки меню для этого видео
-     * - Открытие меню для видео с помощью нажатия соответствующей кнопки
-     */
-    public void openVideoMenu(String videoTitle) {
-        String videoXpath = String.format(VIDEO_CARD_XPATH, videoTitle);
-        Button menuButton = Button.byXPath(videoXpath + MENU_BUTTON_XPATH);
-        menuButton.press();
-    }
 
     /**
-     * Удаление видео из истории (нажатие на кнопку "Удалить из истории")
-     */
-    public void removeVideoFromHistory(String videoTitle) { removeFromHistoryButton.press(); }
+     * Удаление видео с названием videoTitle из Истории просмотра:
+     * - Открытие "Меню" для видео
+     * - Нажатие кнопки "Удалить из истории"
+     * */
+    public void removeVideoFromHistory(String videoTitle) {
+        openVideoMenu(videoTitle);
+        Button.byXPath(DELETE_BUTTON_XPATH).press();
+    }
 
     /**
      * Проверка наличия видео в Истории просмотров:
@@ -73,23 +46,39 @@ public class HistoryVideoPage extends BasePage {
      */
     public boolean isVideoPresent(String videoTitle) {
         try {
-            String xpath = String.format(VIDEO_CARD_XPATH, videoTitle);
-            return Button.byXPath(xpath).isDisplayed();
-        } catch (Exception e) {
+            if (isHistoryEmpty()) { return false; }
+            String xpath = String.format("//a[contains(@class, 'wdp-card-description-module__videoTitle') " +
+                            "and contains(text(), '%s')]", videoTitle);
+
+            return !$$(By.xpath(xpath)).filter(visible).isEmpty();
+
+        } catch (Throwable e) {
+            System.out.println("Ошибка при проверке наличия видео: " + e.getMessage());
             return false;
         }
     }
 
     /**
      * Очищение Истории просмотров:
+     * - Если видео нет, метод просто завершится без действий.
      * - Нажатие кнопки "Очистить историю"
      * - В появившемся окне нажатие на кнопку подтверждения "Очистить"
      */
     public void cleanHistory() {
-        cleanHistoryButton.press();
-        popupConfirmButton.press();
+        Button cleanHistoryButton = Button.byXPath(
+                "//button[contains(@class, 'wdp-my-delete-history-button-module__button')]" +
+                        "//span[text()='Очистить историю']/.."
+        );
+        // Если кнопка есть
+        if (cleanHistoryButton.isDisplayed()) {
+            cleanHistoryButton.press();
+            Button popupConfirmButton = Button.byXPath(
+                    "//button[contains(@class, 'wdp-popup-module__button') and text()='Очистить']"
+            );
+            popupConfirmButton.press();
+        }
+        // Если кнопки нет - история уже пуста, очистка не требуется.
     }
-
     
     /**
      * Проверка, есть ли видео в Истории просмотров
@@ -97,11 +86,21 @@ public class HistoryVideoPage extends BasePage {
      * - Если такое видео есть и отображается, возвращается true
      * - Иначе (если видео нет) возвращает false
      */
-    public boolean isHistoryNotEmpty() {
-        try {
-            return videoInHisturyButton.isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
+    public boolean isHistoryEmpty() {
+        return Button.byXPath(
+                "//section[contains(@class, 'wdp-my-empty-module__empty')]" +
+                        "//p[contains(text(), 'Тут пока пусто')]").isDisplayed();
+    }
+
+    /**
+     * Открытие меню для видео
+     * - Получение XPath видео с указанным названием
+     * - Получение кнопки меню для этого видео
+     * - Открытие меню для видео с помощью нажатия соответствующей кнопки
+     */
+    private void openVideoMenu(String videoTitle) {
+        String fullXpath = String.format("//a[contains(@class, 'wdp-card-description-module__videoTitle') " +
+                "and contains(text(), '%s')]", videoTitle) + MENU_BUTTON_XPATH;
+        Button.byXPath(fullXpath).press();
     }
 }
