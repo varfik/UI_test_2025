@@ -56,6 +56,7 @@ public class PlaylistTest extends BaseTest {
         PlaylistPage playlistPage = playlistsPage.clickPlaylist();
         playlistPage.deletePlaylist();
 
+        playlistPage.openMenu();
         PlaylistsPage myPlaylists = playlistPage.goToMyPlaylists(PLAYLIST_NAME);
         Assertions.assertFalse(myPlaylists.isPlaylistVisible(PLAYLIST_NAME), "Плейлист не удален!");
     }
